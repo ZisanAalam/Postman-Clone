@@ -13,7 +13,68 @@
 </head>
 
 <body>
+    <div class="container">
+        <div class="side-bar">
 
+        </div>
+        <div class="main-container">
+            <!-- <form action=""> -->
+            <div class="request-container">
+                <select id="request-type">
+                      <option value="GET" selected>GET</option>
+                      <option value="POST">POST</option>
+                      <option value="PUT">PUT</option>
+                      <option value="DELETE">DELETE</option>
+                    </select>
+                <input type="url" placeholder="https://example.com" id="url-field" required/>
+                <button type="submit" id="submit-btn">Send</button>
+            </div>
+
+            <div class="tabs">
+                <ul>
+                    <li class="tab-items active" id="params-tab" onclick="displayContent(event,'params-content')">
+                        Params
+                        <!-- <button class="tab-links active" id="params-tab">Params</button> -->
+                    </li>
+                    <li class="tab-items" id="header-tab" onclick="displayContent(event,'header-content')">
+                        Headers
+                        <!-- <button class="tab-links" id="headers-tab">Heades</button> -->
+                    </li>
+                    <li class="tab-items" id="json-tab" onclick="displayContent(event,'json-content')">
+                        JSON
+                        <!-- <button class="tab-links" id="json-tab">JSON</button> -->
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-contents">
+                <div class="tab-content" id="params-content">
+                    <h4>Query Parameters</h4>
+                    <div class="params" id="params-parameters"></div>
+                    <button id='add-key-value-pair-params'>Add</button>
+                </div>
+                <div class="tab-content" id="header-content">
+                    <h4>Headers</h4>
+                    <div class="params" id="header-parameters"></div>
+                    <button id='add-key-value-pair-header'>Add</button>
+                </div>
+                <div class="tab-content" id="json-content">
+                    <textarea name="" id="" cols="100" rows="5">
+                            this is for json
+                        </textarea>
+                </div>
+            </div>
+            <!-- </form> -->
+
+            <div class="resonse-box">
+                <textarea name="" id="" cols="100" rows="10">
+                    Your response will appear hear
+                </textarea>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
 </body>
 
 </html>

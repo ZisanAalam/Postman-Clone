@@ -1,0 +1,102 @@
+.container {
+    display: flex;
+    margin: 20px;
+}
+
+
+/* 
+.request-container {
+    display: flex;
+} */
+
+#request-type {
+    padding: 10px 10px 10px 2px;
+    border: none;
+    background-color: #ECECEC;
+    /* border-right: 1px; */
+}
+
+#url-field {
+    padding: 10px;
+    width: 60%;
+    /* border: 1px solid rgb(51, 49, 49); */
+    border: none;
+    background-color: #ECECEC;
+    /* margin-left: 0px; */
+}
+
+#submit-btn {
+    padding: 10px 20px;
+    background-color: #097BED;
+    /* Green */
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tabs ul {
+    display: flex;
+    /* margin: 10px 20px; */
+    margin-top: 10px;
+    background-color: #FAFAFA;
+}
+
+.tab-items {
+    /* margin: 0px 20px; */
+    margin-right: 50px;
+    list-style: none;
+    padding: 10px;
+    border: none;
+    background-color: #FAFAFA;
+    color: #888;
+    cursor: pointer;
+}
+
+.tab-items.active {
+    border-bottom: 5px solid #F26B3A;
+    color: #505050;
+}
+
+#add-key-value-pair-params,
+#add-key-value-pair-header {
+    border-color: #04AA6D;
+    color: green;
+    background-color: white;
+    padding: 5px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+
+
+/* .tab-links {
+    padding: 10px;
+    border: none;
+    background-color: #FAFAFA;
+    color: #888;
+    cursor: pointer;
+}
+
+
+
+.tab-panel-btn {
+    border-color: #04AA6D;
+    color: green;
+    background-color: white;
+    padding: 5px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.tab-panel-btn {
+    display: none;
+}
+
+.tab-panel-btn.active {
+    display: block;
+} */
