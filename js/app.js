@@ -3,8 +3,6 @@ let bodyContents = document.getElementById('body-content');
 headerContents.style.display = 'none';
 bodyContents.style.display = 'none';
 
-//true if active tab is qurey parameter;
-let paramsStatus = true;
 
 
 function displayContent(event, content) {
@@ -27,10 +25,6 @@ function displayContent(event, content) {
     document.getElementById(content).style.display = "block";
     event.currentTarget.className += " active";
 
-    if (event.currentTarget.id === 'params-tab') {
-        paramsStatus = true;
-    }
-
 }
 
 
@@ -51,15 +45,18 @@ addKeyValuePairParamsBtn.addEventListener('click', () => {
     let value = document.createElement('input');
     let removeBtn = document.createElement('button');
     removeBtn.innerHTML = 'remove';
-    removeBtn.setAttribute('id', 'remove-param')
+    removeBtn.setAttribute('id', 'remove-param');
+    removeBtn.setAttribute('class', 'remove-btn');
 
     key.setAttribute('type', 'text')
     key.setAttribute('id', `queryparamskey${queryParamscounter}`);
     key.setAttribute('placeholder', 'key');
+    key.setAttribute('class', 'keys');
 
     value.setAttribute('type', 'text')
     value.setAttribute('id', `queryparamsvalue${queryParamscounter}`);
     value.setAttribute('placeholder', 'value');
+    value.setAttribute('class', 'values');
 
     div.appendChild(key);
     div.appendChild(value);
@@ -82,14 +79,17 @@ addKeyValuePairHeaderBtn.addEventListener('click', () => {
     let removeBtn = document.createElement('button');
     removeBtn.innerHTML = 'remove';
     removeBtn.setAttribute('id', 'remove-param')
+    removeBtn.setAttribute('class', 'remove-btn');
 
     key.setAttribute('type', 'text')
     key.setAttribute('id', `headerparamskey${headerParamsCounter}`);
     key.setAttribute('placeholder', 'key');
+    key.setAttribute('class', 'keys');
 
     value.setAttribute('type', 'text')
     value.setAttribute('id', `headerparamsvalue${headerParamsCounter}`);
     value.setAttribute('placeholder', 'value');
+    value.setAttribute('class', 'values');
 
     div.appendChild(key);
     div.appendChild(value);
@@ -115,32 +115,34 @@ submitBtn.addEventListener('click', (e) => {
     // console.log(paramscounter);
 
     if (requestType == 'GET') {
-        if (paramsStatus) {
 
-            for (let i = 0; i < queryParamscounter + 1; i++) {
-                if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
-                    let key = document.getElementById(`queryparamskey${i+1}`).value;
-                    let value = document.getElementById(`queryparamsvalue${i+1}`).value;
-                    if (url.includes("?")) {
-                        url += '&' + key + '=' + value;
+        for (let i = 0; i < queryParamscounter + 1; i++) {
+            if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
+                let key = document.getElementById(`queryparamskey${i+1}`).value;
+                let value = document.getElementById(`queryparamsvalue${i+1}`).value;
+                if (url.includes("?")) {
+                    url += '&' + key + '=' + value;
+                } else {
+                    if (i === 0) {
+                        url += '?' + key + '=' + value
                     } else {
-                        if (i === 0) {
-                            url += '?' + key + '=' + value
-                        } else {
-                            url += '&' + key + '=' + value
-                        }
+                        url += '&' + key + '=' + value
                     }
-
-
                 }
             }
-
-            fetch(url)
-                .then(response => response.text())
-                .then(text => {
-                    document.getElementById('response').value = text;
-                })
         }
+        document.getElementById('url-field').value = url;
+        fetch(url)
+            .then((response) => {
+                // console.log(response);
+                // console.log(response.headers.get("content-length"));
+                console.log(response.headers);
+                return response.text();
+
+            })
+            .then(data => {
+                document.getElementById('response').value = data;
+            })
 
     }
 

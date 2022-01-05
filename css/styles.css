@@ -18,7 +18,7 @@
 
 #url-field {
     padding: 10px;
-    width: 60%;
+    width: 72%;
     /* border: 1px solid rgb(51, 49, 49); */
     border: none;
     background-color: #ECECEC;
@@ -26,16 +26,13 @@
 }
 
 #submit-btn {
-    padding: 10px 20px;
+    padding: 9px 30px;
     background-color: #097BED;
-    /* Green */
-    border: none;
-    color: white;
-    /* padding: 15px 32px; */
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    color: white;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .tabs ul {
@@ -66,10 +63,60 @@
     border-color: #04AA6D;
     color: green;
     background-color: white;
-    padding: 5px 20px;
+    padding: 8px 30px;
     font-size: 16px;
     cursor: pointer;
     margin: 10px 0px;
+    border-radius: 4px;
+}
+
+.keys,
+.values {
+    width: 40%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.remove-btn {
+    padding: 9px 20px;
+    border-color: red;
+    color: red;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 88%;
+    height: 30vh;
+    padding: 12px 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    overflow: scroll;
+}
+
+.tab-content textarea {
+    height: 20vh;
+    padding-left: 0px;
+}
+
+#response {
+    width: 88%;
+    height: 30vh;
+    padding: 12px 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    overflow: scroll;
 }
 
 
