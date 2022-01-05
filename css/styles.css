@@ -119,6 +119,19 @@ textarea {
     overflow: scroll;
 }
 
+.response-header {
+    display: flex;
+    width: 88%;
+    background-color: #FAFAFA;
+    padding: 10px 0px;
+}
+
+.response-header-items {
+    margin-right: 30px;
+    font-size: 14px;
+    color: #888;
+}
+
 
 /* .tab-links {
     padding: 10px;

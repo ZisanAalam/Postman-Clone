@@ -4,12 +4,13 @@ headerContents.style.display = 'none';
 bodyContents.style.display = 'none';
 
 
+// document.getElementById('header-tab').onclick = displayContent(e, 'header-content');
 
 function displayContent(event, content) {
     // Declare all variables
     var i, tabcontent, tabs;
 
-    // Get all elements with class="tabcontent" and hide them
+    // Get all elements with class="tab-content" and hide them
     tabcontent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
@@ -115,39 +116,44 @@ submitBtn.addEventListener('click', (e) => {
     // console.log(paramscounter);
 
     if (requestType == 'GET') {
-
-        for (let i = 0; i < queryParamscounter + 1; i++) {
-            if (document.getElementById(`queryparamskey${i+1}`) != undefined && document.getElementById(`queryparamskey${i+1}`).value != "") {
-                let key = document.getElementById(`queryparamskey${i+1}`).value;
-                let value = document.getElementById(`queryparamsvalue${i+1}`).value;
-                if (url.includes("?")) {
-                    url += '&' + key + '=' + value;
-                } else {
-                    if (i === 0) {
-                        url += '?' + key + '=' + value
-                    } else {
-                        url += '&' + key + '=' + value
-                    }
-                }
-            }
-        }
-        console.log(url);
-        // document.getElementById('url-field').value = url;
-        fetch(url)
-            .then((response) => {
-                // console.log(response);
-                // console.log(response.headers.get("content-length"));
-                console.log(response.headers);
-                return response.text();
-
-            })
-            .then(data => {
-                document.getElementById('response').value = data;
-            })
+        getData(url);
+    } else if (requestType == 'POST') {
 
     }
 
 });
+
+// function getData(url) {
+//     for (let i = 0; i < queryParamscounter + 1; i++) {
+//         if (document.getElementById(`queryparamskey${i+1}`) != undefined && document.getElementById(`queryparamskey${i+1}`).value != "") {
+//             let key = document.getElementById(`queryparamskey${i+1}`).value.trim();
+//             let value = document.getElementById(`queryparamsvalue${i+1}`).value.trim();
+//             if (url.includes("?")) {
+//                 url += '&' + key + '=' + value;
+//             } else {
+//                 if (i === 0) {
+//                     url += '?' + key + '=' + value
+//                 } else {
+//                     url += '&' + key + '=' + value
+//                 }
+//             }
+//         }
+//     }
+
+//     fetch(url)
+//         .then((response) => {
+//             // console.log(response);
+//             // console.log(response.headers.get("content-length"));
+//             // console.log(response.headers);
+//             return response.text();
+
+//         })
+//         .then(data => {
+//             document.getElementById('response').value = data;
+//         })
+
+
+// }
 
 // let data;
 
