@@ -117,7 +117,7 @@ submitBtn.addEventListener('click', (e) => {
     if (requestType == 'GET') {
 
         for (let i = 0; i < queryParamscounter + 1; i++) {
-            if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
+            if (document.getElementById(`queryparamskey${i+1}`) != undefined && document.getElementById(`queryparamskey${i+1}`).value != "") {
                 let key = document.getElementById(`queryparamskey${i+1}`).value;
                 let value = document.getElementById(`queryparamsvalue${i+1}`).value;
                 if (url.includes("?")) {
@@ -131,7 +131,8 @@ submitBtn.addEventListener('click', (e) => {
                 }
             }
         }
-        document.getElementById('url-field').value = url;
+        console.log(url);
+        // document.getElementById('url-field').value = url;
         fetch(url)
             .then((response) => {
                 // console.log(response);
