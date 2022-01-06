@@ -119,20 +119,20 @@ textarea {
     overflow: scroll;
 }
 
-.response-header {
+.response-details {
     display: flex;
     width: 88%;
     background-color: #FAFAFA;
     padding: 10px 0px;
 }
 
-.response-header-items {
+.response-detail-items {
     margin-right: 30px;
     font-size: 14px;
     color: #888;
 }
 
-.response-header-items span {
+.response-detail-items span {
     color: green;
 }
 

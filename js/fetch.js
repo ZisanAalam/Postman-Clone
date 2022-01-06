@@ -2,6 +2,8 @@ let startTime;
 let endTime;
 
 let loading = document.getElementById('loading');
+let responseHeaderContainer = document.querySelector('.response-header-containter');
+
 
 function getData(url, queryParamscounter) {
     loading.classList.add('activate')
@@ -23,13 +25,11 @@ function getData(url, queryParamscounter) {
             }
         }
     }
-    console.log(url);
+    // console.log(url);
     fetch(url)
         .then((response) => {
-            // console.log(response);
-            // console.log(response.headers.get("content-length"));
-            // console.log(response.headers);
-            responseHeader(response);
+            updateResponseHeaderContainer(response.headers);
+            updateResponseDetails(response);
             return response.text();
 
         }).catch(e => e.response)
@@ -45,7 +45,7 @@ function getData(url, queryParamscounter) {
 
 
 
-function responseHeader(response) {
+function updateResponseDetails(response) {
     const size = new TextEncoder().encode(JSON.stringify(response)).length
     const kiloBytes = size / 1024;
     let st = response.status;
@@ -64,8 +64,18 @@ function responseHeader(response) {
 
 }
 
-function getSize(obj) {
+function updateResponseHeaderContainer(headers) {
+    responseHeaderContainer.innerHTML = "";
+    Object.entries(headers).forEach(([key, value]) => {
+        let keyElement = document.createElement('div');
+        keyElement.textContent = key;
+        responseHeaderContainer.appendChild(keyElement);
 
+        let valueElement = document.createElement('div');
+        valueElement.textContent = value;
+        responseHeaderContainer.appendChild(valueElement);
+        console.log(key, value);
+    })
 }
 const getSizeInBytes = obj => {
     let str = null;

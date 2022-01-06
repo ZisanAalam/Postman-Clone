@@ -135,12 +135,11 @@ submitBtn.addEventListener('click', (e) => {
     // console.log(paramscounter);
 
     if (requestType == 'GET') {
-        // if (paramsStatus) {
-        console.log(paramsStatus);
-        getData(url, queryParamscounter);
+        if (paramsStatus) {
+            getData(url, queryParamscounter);
 
 
-        // }
+        }
 
     } else if (requestType == 'POST') {
         let data;
