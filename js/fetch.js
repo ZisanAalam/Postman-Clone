@@ -1,7 +1,10 @@
 let startTime;
 let endTime;
 
+let loading = document.getElementById('loading')
+
 function getData(url, queryParamscounter) {
+    loading.classList.add('activate')
     startTime = new Date().getTime();
     for (let i = 0; i < queryParamscounter + 1; i++) {
         // && document.getElementById(`queryparamskey${i+1}`).value != ""
@@ -32,6 +35,7 @@ function getData(url, queryParamscounter) {
 
         }).catch(e => e.response)
         .then(data => {
+            loading.classList.remove('activate')
             document.getElementById('response').value = data;
             endTime = new Date().getTime();
         })
