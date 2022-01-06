@@ -3,14 +3,15 @@ let bodyContents = document.getElementById('body-content');
 headerContents.style.display = 'none';
 bodyContents.style.display = 'none';
 
+//true if active tab is qurey parameter;
+let paramsStatus = true;
 
-// document.getElementById('header-tab').onclick = displayContent(e, 'header-content');
 
 function displayContent(event, content) {
     // Declare all variables
     var i, tabcontent, tabs;
 
-    // Get all elements with class="tab-content" and hide them
+    // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
@@ -25,6 +26,10 @@ function displayContent(event, content) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(content).style.display = "block";
     event.currentTarget.className += " active";
+
+    if (event.currentTarget.id === 'params-tab') {
+        paramsStatus = true;
+    }
 
 }
 
@@ -46,8 +51,9 @@ addKeyValuePairParamsBtn.addEventListener('click', () => {
     let value = document.createElement('input');
     let removeBtn = document.createElement('button');
     removeBtn.innerHTML = 'remove';
-    removeBtn.setAttribute('id', 'remove-param');
-    removeBtn.setAttribute('class', 'remove-btn');
+    removeBtn.setAttribute('id', 'remove-param')
+    removeBtn.setAttribute('class', 'remove-btn')
+
 
     key.setAttribute('type', 'text')
     key.setAttribute('id', `queryparamskey${queryParamscounter}`);
@@ -80,17 +86,14 @@ addKeyValuePairHeaderBtn.addEventListener('click', () => {
     let removeBtn = document.createElement('button');
     removeBtn.innerHTML = 'remove';
     removeBtn.setAttribute('id', 'remove-param')
-    removeBtn.setAttribute('class', 'remove-btn');
 
     key.setAttribute('type', 'text')
     key.setAttribute('id', `headerparamskey${headerParamsCounter}`);
     key.setAttribute('placeholder', 'key');
-    key.setAttribute('class', 'keys');
 
     value.setAttribute('type', 'text')
     value.setAttribute('id', `headerparamsvalue${headerParamsCounter}`);
     value.setAttribute('placeholder', 'value');
-    value.setAttribute('class', 'values');
 
     div.appendChild(key);
     div.appendChild(value);
@@ -116,44 +119,16 @@ submitBtn.addEventListener('click', (e) => {
     // console.log(paramscounter);
 
     if (requestType == 'GET') {
-        getData(url);
-    } else if (requestType == 'POST') {
+        if (paramsStatus) {
+
+            getData(url, queryParamscounter);
+
+
+        }
 
     }
 
 });
-
-// function getData(url) {
-//     for (let i = 0; i < queryParamscounter + 1; i++) {
-//         if (document.getElementById(`queryparamskey${i+1}`) != undefined && document.getElementById(`queryparamskey${i+1}`).value != "") {
-//             let key = document.getElementById(`queryparamskey${i+1}`).value.trim();
-//             let value = document.getElementById(`queryparamsvalue${i+1}`).value.trim();
-//             if (url.includes("?")) {
-//                 url += '&' + key + '=' + value;
-//             } else {
-//                 if (i === 0) {
-//                     url += '?' + key + '=' + value
-//                 } else {
-//                     url += '&' + key + '=' + value
-//                 }
-//             }
-//         }
-//     }
-
-//     fetch(url)
-//         .then((response) => {
-//             // console.log(response);
-//             // console.log(response.headers.get("content-length"));
-//             // console.log(response.headers);
-//             return response.text();
-
-//         })
-//         .then(data => {
-//             document.getElementById('response').value = data;
-//         })
-
-
-// }
 
 // let data;
 
