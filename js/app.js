@@ -5,6 +5,8 @@ bodyContents.style.display = 'none';
 
 //true if active tab is qurey parameter;
 let paramsStatus = true;
+let headerStatus = false;
+let bodyStatus = false;
 
 
 function displayContent(event, content) {
@@ -29,6 +31,16 @@ function displayContent(event, content) {
 
     if (event.currentTarget.id === 'params-tab') {
         paramsStatus = true;
+        headerStatus = false;
+        bodyStatus = false
+    } else if (event.currentTarget.id === 'header-tab') {
+        headerStatus = true;
+        paramsStatus = false;
+        bodyStatus = false;
+    } else if (event.currentTarget.id === 'body-tab') {
+        bodyStatus = true;
+        paramsStatus = false;
+        headerStatus = false;
     }
 
 }
@@ -76,6 +88,7 @@ addKeyValuePairParamsBtn.addEventListener('click', () => {
     })
 
 
+
 })
 
 addKeyValuePairHeaderBtn.addEventListener('click', () => {
@@ -86,14 +99,17 @@ addKeyValuePairHeaderBtn.addEventListener('click', () => {
     let removeBtn = document.createElement('button');
     removeBtn.innerHTML = 'remove';
     removeBtn.setAttribute('id', 'remove-param')
+    removeBtn.setAttribute('class', 'remove-btn')
 
     key.setAttribute('type', 'text')
     key.setAttribute('id', `headerparamskey${headerParamsCounter}`);
     key.setAttribute('placeholder', 'key');
+    key.setAttribute('class', 'keys');
 
     value.setAttribute('type', 'text')
     value.setAttribute('id', `headerparamsvalue${headerParamsCounter}`);
     value.setAttribute('placeholder', 'value');
+    value.setAttribute('class', 'values');
 
     div.appendChild(key);
     div.appendChild(value);
@@ -119,49 +135,38 @@ submitBtn.addEventListener('click', (e) => {
     // console.log(paramscounter);
 
     if (requestType == 'GET') {
-        if (paramsStatus) {
+        // if (paramsStatus) {
+        console.log(paramsStatus);
+        getData(url, queryParamscounter);
 
-            getData(url, queryParamscounter);
 
-
-        }
+        // }
 
     } else if (requestType == 'POST') {
-        let data = document.getElementById('json-body').value.trim();
+        let data;
+        if (bodyStatus) {
+            data = document.getElementById('json-body').value.trim();
+        } else if (headerStatus) {
+            data = JSON.stringify(getHeaderData());
+
+        }
         postData(url, data);
     }
 
 });
 
-String.prototype.escapeSpecialChars = function() {
-    return this
-        .replace(/\\n/g, '')
-        .replace(/\\/g, '')
-        .replace(/\\/g, '')
-        .replace(/\\&/g, '')
-        .replace(/\\r/g, '')
-        .replace(/\\t/g, '')
-        .replace(/\\b/g, '')
-        .replace(/\\f/g, '')
-        .replace(/\s+/g, '');
-};
-
-// let data;
-
-// function getParameter() {
-//     let data = {};
-//     for (let i = 0; i < (queryParamscounter + 1); i++) {
-//         if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
-//             let key = document.getElementById(`queryparamskey${i+1}`).value;
-//             let value = document.getElementById(`queryparamsvalue${i+1}`).value;
-//             data[key] = value;
-//             console.log(key);
-//             console.log(value);
-
-//         }
-
-
-//     }
-
-//     return data;
-// }
+function getHeaderData() {
+    let data = {};
+    for (let i = 0; i < headerParamsCounter + 1; i++) {
+        // && document.getElementById(`queryparamskey${i+1}`).value != ""
+        if (document.getElementById(`headerparamskey${i+1}`) != undefined) {
+            // console.log('fine');
+            let key = document.getElementById(`headerparamskey${i+1}`).value.trim();
+            let value = document.getElementById(`headerparamsvalue${i+1}`).value.trim();
+            data[key] = value;
+            // console.log(typeof key);
+        }
+    }
+    // console.log(data);
+    return data;
+}

@@ -132,6 +132,10 @@ textarea {
     color: #888;
 }
 
+.response-header-items span {
+    color: green;
+}
+
 
 /*ANIMATION LOADING */
 

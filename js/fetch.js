@@ -1,7 +1,7 @@
 let startTime;
 let endTime;
 
-let loading = document.getElementById('loading')
+let loading = document.getElementById('loading');
 
 function getData(url, queryParamscounter) {
     loading.classList.add('activate')
@@ -83,9 +83,10 @@ const getSizeInBytes = obj => {
 };
 
 
+// post request
 
 function postData(url, data) {
-
+    loading.classList.add('activate')
     data = data.escapeSpecialChars();
 
     fetch(url, {
@@ -95,11 +96,13 @@ function postData(url, data) {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
-        .then(response => response.text())
+        .then(response => {
+            responseHeader(response);
+            return response.text()
+        })
         .then((text) => {
-            // document.getElementById('responseJsonText').value = text;
+            loading.classList.remove('activate')
             document.getElementById('response').value = text;
-            // Prism.highlightAll();
         });
 
 }
