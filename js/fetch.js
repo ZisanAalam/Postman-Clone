@@ -30,7 +30,6 @@ function getData(url, queryParamscounter) {
             // console.log(response.headers.get("content-length"));
             // console.log(response.headers);
             responseHeader(response);
-
             return response.text();
 
         }).catch(e => e.response)
@@ -49,12 +48,18 @@ function getData(url, queryParamscounter) {
 function responseHeader(response) {
     const size = new TextEncoder().encode(JSON.stringify(response)).length
     const kiloBytes = size / 1024;
+    let st = response.status;
+    if (st === 404) {
+        document.getElementById('response-status').style.color = 'red';
+    }
+    // console.log(response);
     document.getElementById('response-status').textContent = response.status;
     document.getElementById('response-time').textContent = `${endTime-startTime}ms`;
     // var obj = JSON.parse(response);
     // var length = Object.keys(obj).length;
     // document.getElementById('response-size').textContent = length + 'KB';
-    document.getElementById('response-size').textContent = JSON.stringify(response).length + 'KB';
+    document.getElementById('response-size').textContent = kiloBytes + 'KB';
+    // document.getElementById('response-size').textContent = JSON.stringify(response).length + 'KB';
     // document.getElementById('response-size').textContent = getSizeInBytes(response) + 'KB';
 
 }
@@ -73,5 +78,41 @@ const getSizeInBytes = obj => {
     }
     // Get the length of the Uint8Array
     const bytes = new TextEncoder().encode(str).length;
+    console.log(bytes);
     return bytes;
+};
+
+
+
+function postData(url, data) {
+
+    data = data.escapeSpecialChars();
+
+    fetch(url, {
+            method: 'POST',
+            body: data,
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(response => response.text())
+        .then((text) => {
+            // document.getElementById('responseJsonText').value = text;
+            document.getElementById('response').value = text;
+            // Prism.highlightAll();
+        });
+
+}
+
+String.prototype.escapeSpecialChars = function() {
+    return this
+        .replace(/\\n/g, '')
+        .replace(/\\/g, '')
+        .replace(/\\/g, '')
+        .replace(/\\&/g, '')
+        .replace(/\\r/g, '')
+        .replace(/\\t/g, '')
+        .replace(/\\b/g, '')
+        .replace(/\\f/g, '')
+        .replace(/\s+/g, '');
 };

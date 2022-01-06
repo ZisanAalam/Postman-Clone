@@ -126,9 +126,25 @@ submitBtn.addEventListener('click', (e) => {
 
         }
 
+    } else if (requestType == 'POST') {
+        let data = document.getElementById('json-body').value.trim();
+        postData(url, data);
     }
 
 });
+
+String.prototype.escapeSpecialChars = function() {
+    return this
+        .replace(/\\n/g, '')
+        .replace(/\\/g, '')
+        .replace(/\\/g, '')
+        .replace(/\\&/g, '')
+        .replace(/\\r/g, '')
+        .replace(/\\t/g, '')
+        .replace(/\\b/g, '')
+        .replace(/\\f/g, '')
+        .replace(/\s+/g, '');
+};
 
 // let data;
 
