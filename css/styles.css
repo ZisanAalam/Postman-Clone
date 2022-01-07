@@ -137,6 +137,21 @@ textarea {
 }
 
 
+/* Header Informations */
+
+.response-header-containter table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.response-header-containter table td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+
 /*ANIMATION LOADING */
 
 .loading {

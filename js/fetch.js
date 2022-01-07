@@ -64,18 +64,23 @@ function updateResponseDetails(response) {
 
 }
 
+//Show header Informations
 function updateResponseHeaderContainer(headers) {
     responseHeaderContainer.innerHTML = "";
+    let headerTable = document.createElement('table');
     Object.entries(headers).forEach(([key, value]) => {
-        let keyElement = document.createElement('div');
+        let tableRow = document.createElement('tr');
+        let keyElement = document.createElement('td');
         keyElement.textContent = key;
-        responseHeaderContainer.appendChild(keyElement);
+        tableRow.appendChild(keyElement);
 
-        let valueElement = document.createElement('div');
+        let valueElement = document.createElement('td');
         valueElement.textContent = value;
-        responseHeaderContainer.appendChild(valueElement);
-        console.log(key, value);
+        tableRow.appendChild(valueElement);
+        // console.log(key, value);
+        headerTable.appendChild(tableRow);
     })
+    responseHeaderContainer.appendChild(headerTable);
 }
 const getSizeInBytes = obj => {
     let str = null;
@@ -94,7 +99,6 @@ const getSizeInBytes = obj => {
 
 
 // post request
-
 function postData(url, data) {
     loading.classList.add('activate')
     data = data.escapeSpecialChars();
