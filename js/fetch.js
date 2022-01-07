@@ -7,11 +7,9 @@ let responseHeaderContainer = document.querySelector('.response-header-containte
 
 function getData(url, queryParamscounter) {
     loading.classList.add('activate')
-    startTime = new Date().getTime();
     for (let i = 0; i < queryParamscounter + 1; i++) {
         // && document.getElementById(`queryparamskey${i+1}`).value != ""
         if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
-            console.log('fine');
             let key = document.getElementById(`queryparamskey${i+1}`).value.trim();
             let value = document.getElementById(`queryparamsvalue${i+1}`).value.trim();
             if (url.includes("?")) {
@@ -25,42 +23,93 @@ function getData(url, queryParamscounter) {
             }
         }
     }
-    // console.log(url);
+    startTime = new Date().getTime();
     fetch(url)
         .then((response) => {
+            response.myData = new Date().getTime();
             updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
             return response.text();
 
         }).catch(e => e.response)
         .then(data => {
+            document.getElementById('response-size').textContent = data.length + 'B';
             loading.classList.remove('activate')
             document.getElementById('response').value = data;
-            endTime = new Date().getTime();
         })
 
 
 
 }
 
+// post request
+function postData(url, data) {
+    loading.classList.add('activate')
+    if (data.length != 0) {
+        data = data.escapeSpecialChars();
+    }
 
 
+    startTime = new Date().getTime();
+    fetch(url, {
+            method: 'POST',
+            body: data,
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(response => {
+            response.myData = new Date().getTime();
+            updateResponseDetails(response);
+            return response.text()
+        })
+        .then((text) => {
+            loading.classList.remove('activate')
+            document.getElementById('response-size').textContent = data.length + 'B';
+            document.getElementById('response').value = text;
+        });
+
+}
+
+// PUT request
+function putData(url, data) {
+    loading.classList.add('activate')
+    if (data.length != 0) {
+        data = data.escapeSpecialChars();
+    }
+
+
+    startTime = new Date().getTime();
+    fetch(url, {
+            method: 'PUT',
+            body: data,
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+        .then(response => {
+            response.myData = new Date().getTime();
+            updateResponseDetails(response);
+            return response.text()
+        })
+        .then((text) => {
+            loading.classList.remove('activate')
+            document.getElementById('response-size').textContent = data.length + 'B';
+            document.getElementById('response').value = text;
+        });
+
+}
+
+// update response details like status, time and size
 function updateResponseDetails(response) {
-    const size = new TextEncoder().encode(JSON.stringify(response)).length
-    const kiloBytes = size / 1024;
+    endTime = response.myData;
     let st = response.status;
     if (st === 404) {
         document.getElementById('response-status').style.color = 'red';
     }
-    // console.log(response);
     document.getElementById('response-status').textContent = response.status;
     document.getElementById('response-time').textContent = `${endTime-startTime}ms`;
-    // var obj = JSON.parse(response);
-    // var length = Object.keys(obj).length;
-    // document.getElementById('response-size').textContent = length + 'KB';
-    document.getElementById('response-size').textContent = kiloBytes + 'KB';
-    // document.getElementById('response-size').textContent = JSON.stringify(response).length + 'KB';
-    // document.getElementById('response-size').textContent = getSizeInBytes(response) + 'KB';
+    // document.getElementById('response-size').textContent = dataSize + 'KB';
 
 }
 
@@ -98,29 +147,7 @@ const getSizeInBytes = obj => {
 };
 
 
-// post request
-function postData(url, data) {
-    loading.classList.add('activate')
-    data = data.escapeSpecialChars();
-
-    fetch(url, {
-            method: 'POST',
-            body: data,
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-        .then(response => {
-            updateResponseDetails(response);
-            return response.text()
-        })
-        .then((text) => {
-            loading.classList.remove('activate')
-            document.getElementById('response').value = text;
-        });
-
-}
-
+//removes special characters from the data
 String.prototype.escapeSpecialChars = function() {
     return this
         .replace(/\\n/g, '')

@@ -148,9 +148,24 @@ submitBtn.addEventListener('click', (e) => {
         } else if (headerStatus) {
             data = JSON.stringify(getHeaderData());
 
+        } else {
+            data = JSON.stringify({});
         }
         postData(url, data);
+    } else if (requestType == 'PUT') {
+        let data;
+        if (bodyStatus) {
+            data = document.getElementById('json-body').value.trim();
+        } else if (headerStatus) {
+            data = JSON.stringify(getHeaderData());
+
+        } else {
+            data = JSON.stringify({});
+        }
+        putData(url, data);
     }
+
+
 
 });
 
