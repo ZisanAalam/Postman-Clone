@@ -111,7 +111,7 @@ function postData(url, data) {
             }
         })
         .then(response => {
-            responseHeader(response);
+            updateResponseDetails(response);
             return response.text()
         })
         .then((text) => {
