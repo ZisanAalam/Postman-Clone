@@ -1,7 +1,7 @@
 .side-bar {
     width: 20%;
     border: 1px solid grey;
-    position: relative;
+    /* position: relative; */
 }
 
 .main-container {

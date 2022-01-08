@@ -246,7 +246,10 @@ textarea {
 .popup-form {
     display: none;
     position: absolute;
-    top: 30px;
+    top: 30%;
+    left: 50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
     /* left: 15px; */
     border: 3px solid #f1f1f1;
     z-index: 9;
@@ -296,9 +299,10 @@ textarea {
     padding: 16px 20px;
     border: none;
     cursor: pointer;
-    width: 100%;
+    width: 200px;
     margin-bottom: 10px;
     opacity: 0.8;
+    text-align: center;
 }
 
 
@@ -314,6 +318,35 @@ textarea {
 .form-container .btn:hover,
 .open-button:hover {
     opacity: 1;
+}
+
+
+/* styles for collections */
+
+.collections {
+    padding: 10px 20px;
+    border-bottom: 1px solid #d6d3d3;
+}
+
+.collections:first-child {
+    border-top: 1px solid #d6d3d3;
+}
+
+
+/* sytles for arrow */
+
+.arrows {
+    padding-right: 10px;
+    font-size: 16px;
+    color: #888;
+}
+
+.collection-name {
+    color: #888;
+}
+
+.collections:hover {
+    background-color: #ECECEC;
 }
 
 

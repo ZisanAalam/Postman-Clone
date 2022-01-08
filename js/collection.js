@@ -51,8 +51,14 @@ function displayCollection() {
         // console.log(localStorage.key(i));
         let cName = localStorage.key(i);
         let div = document.createElement('div');
+        div.setAttribute('class', 'collections');
+
         let arrowSpan = document.createElement('span');
+        arrowSpan.setAttribute('class', 'arrows');
+
         let contentSpan = document.createElement('span');
+        contentSpan.setAttribute('class', 'collection-name');
+
         arrowSpan.innerHTML = '&gt;';
         contentSpan.innerHTML = cName;
         div.appendChild(arrowSpan);
@@ -74,7 +80,8 @@ function showVariables(evt) {
         evt.currentTarget.children[0].innerHTML = '&gt;';
     }
 
-    console.log(name);
-    console.log(obj);
+    obj = JSON.parse(obj);
+    let len = Object.keys(obj).length;
+
 
 }
