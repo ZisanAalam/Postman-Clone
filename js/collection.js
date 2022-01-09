@@ -62,6 +62,7 @@ function validateCollectionAddForm(name) {
     return true;
 }
 
+// Display all the collections stored in localStorage
 function displayCollection() {
     for (let i = 0; i < localStorage.length; i++) {;
         let cName = localStorage.key(i);
@@ -74,14 +75,20 @@ function displayCollection() {
         let contentSpan = document.createElement('span');
         contentSpan.setAttribute('class', 'collection-name');
 
+        let dotSpan = document.createElement('span');
+        // dotSpan.innerHTML = '&deg;&deg;&deg;'
+        dotSpan.setAttribute('class', 'collection-dots')
+
         arrowSpan.innerHTML = '&gt;';
         contentSpan.innerHTML = cName;
         div.appendChild(arrowSpan);
         div.appendChild(contentSpan);
+        div.appendChild(dotSpan);
         collectionContainer.appendChild(div);
         // div.name = cName;
 
         div.addEventListener('click', showVariables);
+        dotSpan.addEventListener('click', showActionForm);
 
     }
 }
@@ -99,4 +106,8 @@ function showVariables(evt) {
     let len = Object.keys(obj).length;
 
 
+}
+
+function showActionForm(evt) {
+    console.log(evt.currentTarget.parentElement.children[1].innerText);
 }

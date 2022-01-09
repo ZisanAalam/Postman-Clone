@@ -350,6 +350,7 @@ textarea {
 .collections {
     padding: 10px 20px;
     border-bottom: 1px solid #d6d3d3;
+    position: relative;
 }
 
 .collections:first-child {
@@ -371,6 +372,43 @@ textarea {
 
 .collections:hover {
     background-color: #ECECEC;
+}
+
+.collection-dots {
+    position: relative;
+    /* left: 100px; */
+    float: right;
+    padding: 10px;
+}
+
+.collection-dots:before {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    content: '';
+    background-color: rgb(201, 199, 199);
+    border-radius: 5px;
+    font-size: 0;
+    padding: 3px;
+}
+
+.collection-dots:after {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    content: '';
+    background-color: rgb(201, 199, 199);
+    border-radius: 5px;
+    font-size: 0;
+    padding: 3px;
+}
+
+.collection-dots:hover::before {
+    padding: 5px;
+}
+
+.collection-dots:hover::after {
+    padding: 5px;
 }
 
 
