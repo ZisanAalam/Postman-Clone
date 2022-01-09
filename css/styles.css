@@ -1,382 +1,407 @@
-.container {
-    display: flex;
-    margin: 20px;
-}
-
-.container#blur.active {
-    filter: blur(2px);
-    pointer-events: none;
-    user-select: none;
-}
-
-
-/* 
+    .container {
+        display: flex;
+        margin: 20px;
+    }
+    
+    .container#blur.active {
+        filter: blur(2px);
+        pointer-events: none;
+        user-select: none;
+    }
+    /* 
 .request-container {
     display: flex;
 } */
-
-
-/* Style for request type */
-
-#request-type {
-    padding: 10px 10px 10px 2px;
-    border: none;
-    background-color: #ECECEC;
-    /* border-right: 1px; */
-}
-
-
-/* Style for url field */
-
-#url-field {
-    padding: 10px;
-    width: 72%;
-    border: none;
-    background-color: #ECECEC;
-}
-
-#submit-btn {
-    padding: 9px 30px;
-    background-color: #097BED;
-    text-align: center;
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-.tabs ul {
-    display: flex;
-    /* margin: 10px 20px; */
-    margin-top: 10px;
-    background-color: #FAFAFA;
-}
-
-.tab-items {
-    /* margin: 0px 20px; */
-    margin-right: 50px;
-    list-style: none;
-    padding: 10px;
-    border: none;
-    background-color: #FAFAFA;
-    color: #888;
-    cursor: pointer;
-}
-
-.tab-items.active {
-    border-bottom: 5px solid #F26B3A;
-    color: #505050;
-}
-
-#add-key-value-pair-params,
-#add-key-value-pair-header {
-    border-color: #04AA6D;
-    color: green;
-    background-color: white;
-    padding: 8px 30px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px 0px;
-    border-radius: 4px;
-}
-
-.keys,
-.values {
-    width: 40%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.remove-btn {
-    padding: 9px 20px;
-    border-color: red;
-    color: red;
-    text-align: center;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-    background-color: white;
-    border-radius: 4px;
-}
-
-textarea {
-    width: 88%;
-    height: 30vh;
-    padding: 12px 20px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    overflow: scroll;
-}
-
-.tab-content textarea {
-    height: 20vh;
-    text-align: left;
-}
-
-#response {
-    width: 88%;
-    height: 30vh;
-    padding: 12px 20px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    font-size: 16px;
-    overflow: scroll;
-}
-
-.response-details {
-    display: flex;
-    width: 88%;
-    background-color: #FAFAFA;
-    padding: 10px 0px;
-}
-
-.response-detail-items {
-    margin-right: 30px;
-    font-size: 14px;
-    color: #888;
-}
-
-.response-detail-items span {
-    color: green;
-}
-
-
-/* Header Informations */
-
-.response-header-containter table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.response-header-containter table td {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-
-/*ANIMATION LOADING */
-
-.loading {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    display: none;
-    left: 0;
-}
-
-.activate {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.lds-ring {
-    display: inline-block;
-    position: relative;
-    width: 80px;
-    height: 80px;
-}
-
-.lds-ring div {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border: 8px solid #f53550;
-    border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #f53550 transparent transparent transparent;
-}
-
-.lds-ring div:nth-child(1) {
-    animation-delay: -0.45s;
-}
-
-.lds-ring div:nth-child(2) {
-    animation-delay: -0.3s;
-}
-
-.lds-ring div:nth-child(3) {
-    animation-delay: -0.15s;
-}
-
-@keyframes lds-ring {
-    0% {
-        transform: rotate(0deg);
+    /* Style for request type */
+    
+    #request-type {
+        padding: 10px 10px 10px 2px;
+        border: none;
+        background-color: #ECECEC;
+        /* border-right: 1px; */
     }
-    100% {
-        transform: rotate(360deg);
+    /* Style for url field */
+    
+    #url-field {
+        padding: 10px;
+        width: 72%;
+        border: none;
+        background-color: #ECECEC;
     }
-}
-
-
-/* Style for collection title */
-
-.collection-title {
-    text-align: center;
-    font-size: 17px;
-    padding: 10px 0px 10px 0px;
-    background-color: #FAFAFA;
-    color: #505050;
-}
-
-
-/* Style for add collection button */
-
-#addCollections {
-    border: none;
-    padding: 10px;
-    color: red;
-    width: 100%;
-    background-color: white;
-}
-
-#addCollections span {
-    margin: 0px 5px;
-}
-
-
-/* The popup form - hidden by default */
-
-.popup-form {
-    /* display: none; */
-    visibility: hidden;
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 3px solid #f1f1f1;
-    /* z-index: 9; */
-    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
-    background: #fff;
-    opacity: 1;
-    transition: 0.3s;
-    padding: 10px;
-}
-
-.popup-form.active {
+    
+    #submit-btn {
+        padding: 9px 30px;
+        background-color: #097BED;
+        text-align: center;
+        text-decoration: none;
+        color: white;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+    
+    .tabs ul {
+        display: flex;
+        /* margin: 10px 20px; */
+        margin-top: 10px;
+        background-color: #FAFAFA;
+    }
+    
+    .tab-items {
+        /* margin: 0px 20px; */
+        margin-right: 50px;
+        list-style: none;
+        padding: 10px;
+        border: none;
+        background-color: #FAFAFA;
+        color: #888;
+        cursor: pointer;
+    }
+    
+    .tab-items.active {
+        border-bottom: 5px solid #F26B3A;
+        color: #505050;
+    }
+    
+    #add-key-value-pair-params,
+    #add-key-value-pair-header {
+        border-color: #04AA6D;
+        color: green;
+        background-color: white;
+        padding: 8px 30px;
+        font-size: 16px;
+        cursor: pointer;
+        margin: 10px 0px;
+        border-radius: 4px;
+    }
+    
+    .keys,
+    .values {
+        width: 40%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    
+    .remove-btn {
+        padding: 9px 20px;
+        border-color: red;
+        color: red;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        cursor: pointer;
+        background-color: white;
+        border-radius: 4px;
+    }
+    
+    textarea {
+        width: 88%;
+        height: 30vh;
+        padding: 12px 20px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+        overflow: scroll;
+    }
+    
+    .tab-content textarea {
+        height: 20vh;
+        text-align: left;
+    }
+    
+    #response {
+        width: 88%;
+        height: 30vh;
+        padding: 12px 20px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+        overflow: scroll;
+    }
+    
+    .response-details {
+        display: flex;
+        width: 88%;
+        background-color: #FAFAFA;
+        padding: 10px 0px;
+    }
+    
+    .response-detail-items {
+        margin-right: 30px;
+        font-size: 14px;
+        color: #888;
+    }
+    
+    .response-detail-items span {
+        color: green;
+    }
+    /* Header Informations */
+    
+    .response-header-containter table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    
+    .response-header-containter table td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    /*ANIMATION LOADING */
+    
+    .loading {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        display: none;
+        left: 0;
+    }
+    
+    .activate {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .lds-ring {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .lds-ring div {
+        box-sizing: border-box;
+        display: block;
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: 8px;
+        border: 8px solid #f53550;
+        border-radius: 50%;
+        animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        border-color: #f53550 transparent transparent transparent;
+    }
+    
+    .lds-ring div:nth-child(1) {
+        animation-delay: -0.45s;
+    }
+    
+    .lds-ring div:nth-child(2) {
+        animation-delay: -0.3s;
+    }
+    
+    .lds-ring div:nth-child(3) {
+        animation-delay: -0.15s;
+    }
+    
+    @keyframes lds-ring {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    /* Style for collection title */
+    
+    .collection-title {
+        text-align: center;
+        font-size: 17px;
+        padding: 10px 0px 10px 0px;
+        background-color: #FAFAFA;
+        color: #505050;
+    }
+    /* Style for add collection button */
+    
+    #addCollections {
+        border: none;
+        padding: 10px;
+        color: red;
+        width: 100%;
+        background-color: white;
+    }
+    
+    #addCollections span {
+        margin: 0px 5px;
+    }
+    /* The popup form - hidden by default */
+    
+    .popup-form {
+        /* display: none; */
+        visibility: hidden;
+        position: fixed;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        border: 3px solid #f1f1f1;
+        /* z-index: 9; */
+        box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+        background: #fff;
+        opacity: 1;
+        transition: 0.3s;
+        padding: 10px;
+    }
+    
+    .popup-form.active {
+        top: 30%;
+        visibility: visible;
+        opacity: 1;
+        transition: 0.5s;
+    }
+    /* .popup-form.edit.active {
     top: 30%;
     visibility: visible;
     opacity: 1;
     transition: 0.5s;
-}
-
-
-/* Styles for the form container */
-
-.form-container {
-    max-width: 100%;
-    padding: 10px;
-    background-color: white;
-}
-
-
-/* Styles for input field label */
-
-#collection-name-label {
-    color: #888;
-}
-
-
-/* Full-width input fields */
-
-.form-container input[type=text] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0 0 0;
-    border: none;
-    background: #f1f1f1;
-}
-
-
-/* When the inputs get focus, do something */
-
-.form-container input[type=text]:focus {
-    background-color: #ddd;
-    outline: none;
-}
-
-
-/* Styles for the add & cancel button */
-
-.form-container .btn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px 20px;
-    border: none;
-    cursor: pointer;
-    width: 200px;
-    margin: 20px 0;
-    opacity: 0.8;
-    text-align: center;
-}
-
-#collection-form-error-msg {
-    font-size: 14px;
-    color: red;
-    margin-left: 10px;
-    font-style: italic;
-}
-
-
-/* red background color to the cancel button */
-
-.form-container .cancel {
-    background-color: red;
-}
-
-
-/* hover effects to buttons */
-
-.form-container .btn:hover,
-.open-button:hover {
-    opacity: 1;
-}
-
-
-/* styles for collections */
-
-.collections {
-    padding: 10px 20px;
-    border-bottom: 1px solid #d6d3d3;
-    position: relative;
-}
-
-.collections:first-child {
-    border-top: 1px solid #d6d3d3;
-}
-
-
-/* sytles for arrow */
-
-.arrows {
-    padding-right: 10px;
-    font-size: 16px;
-    color: #888;
-}
-
-.collection-name {
-    color: #888;
-}
-
-.collections:hover {
-    background-color: #ECECEC;
-}
-
+} */
+    /* Styles for the form container */
+    
+    .form-container {
+        max-width: 100%;
+        padding: 10px;
+        background-color: white;
+    }
+    /* Styles for input field label */
+    
+    #collection-name-label {
+        color: #888;
+    }
+    /* Full-width input fields */
+    
+    .form-container input[type=text] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 0 0;
+        border: none;
+        background: #f1f1f1;
+    }
+    /* When the inputs get focus, do something */
+    
+    .form-container input[type=text]:focus {
+        background-color: #ddd;
+        outline: none;
+    }
+    /* Styles for the add & cancel button */
+    
+    .form-container .btn {
+        background-color: #04AA6D;
+        color: white;
+        padding: 16px 20px;
+        border: none;
+        cursor: pointer;
+        width: 200px;
+        margin: 20px 0;
+        opacity: 0.8;
+        text-align: center;
+    }
+    
+    #collection-form-error-msg {
+        font-size: 14px;
+        color: red;
+        margin-left: 10px;
+        font-style: italic;
+    }
+    /* red background color to the cancel button */
+    
+    .form-container .cancel {
+        background-color: red;
+    }
+    /* hover effects to buttons */
+    
+    .form-container .btn:hover,
+    .open-button:hover {
+        opacity: 1;
+    }
+    /* styles for collections */
+    
+    .collections {
+        padding: 10px 0px 10px 5px;
+        border-bottom: 1px solid #d6d3d3;
+        position: relative;
+    }
+    
+    .collections:first-child {
+        border-top: 1px solid #d6d3d3;
+    }
+    /* sytles for arrow */
+    
+    .arrows {
+        padding-right: 10px;
+        font-size: 16px;
+        color: #888;
+    }
+    
+    .collection-name {
+        color: #888;
+    }
+    
+    .collections:hover {
+        background-color: #ECECEC;
+    }
+    
+    #action-list {
+        float: right;
+        visibility: hidden;
+        opacity: 0;
+    }
+    
+    #action-list li {
+        float: left;
+        margin-right: 10px;
+        list-style: none;
+    }
+    
+    .collections:hover #action-list {
+        visibility: visible;
+        opacity: 0.5;
+    }
+    
+    #action-list #action-list-item1:hover {
+        color: rgb(39, 165, 39);
+        transform: scale(1.5);
+    }
+    
+    #action-list #action-list-item2:hover {
+        color: rgb(21, 190, 247);
+        transform: scale(1.5);
+    }
+    
+    #action-list #action-list-item3:hover {
+        color: red;
+        transform: scale(1.5);
+    }
+    
+    .popup-form.variables.active {
+        top: 30%;
+        visibility: visible;
+        opacity: 1;
+        transition: 0.5s;
+    }
+    
+    .key-span,
+    .val-span {
+        color: #888;
+    }
+    
+    .key-span {
+        padding-left: 10px;
+        width: 50%;
+    }
+    
+    .val-span {
+        padding-left: 50px;
+        width: 50%;
+    }
+    /* 
 .collection-dots {
     position: relative;
-    /* left: 100px; */
     float: right;
     padding: 10px;
 }
@@ -386,7 +411,7 @@ textarea {
     right: 10px;
     top: 5px;
     content: '';
-    background-color: rgb(201, 199, 199);
+    background-color: white;
     border-radius: 5px;
     font-size: 0;
     padding: 3px;
@@ -397,7 +422,7 @@ textarea {
     right: 0px;
     top: 5px;
     content: '';
-    background-color: rgb(201, 199, 199);
+    background-color: white;
     border-radius: 5px;
     font-size: 0;
     padding: 3px;
@@ -411,8 +436,15 @@ textarea {
     padding: 5px;
 }
 
+.collections:hover span:nth-child(3)::before {
+    background-color: #888;
+}
 
-/* .tab-links {
+.collections:hover span:nth-child(3)::after {
+    background-color: #888;
+} 
+*/
+    /* .tab-links {
     padding: 10px;
     border: none;
     background-color: #FAFAFA;
