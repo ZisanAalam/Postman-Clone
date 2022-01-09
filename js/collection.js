@@ -135,11 +135,16 @@ function showVariables(evt) {
     if (evt.currentTarget.children[0].innerHTML === '&gt;') {
         evt.currentTarget.children[0].innerHTML = '&or;';
         obj = JSON.parse(obj);
+        let tableDiv = document.createElement('div');
+        tableDiv.setAttribute('id', 'table-div');
+
         let table = document.createElement('table');
         table.setAttribute('class', 'variable-table');
+
         for (const [key, value] of Object.entries(obj)) {
             // console.log(`${key}: ${value}`);
             let row = document.createElement('tr');
+            row.setAttribute('class', 'var-rows');
             let keySpan = document.createElement('td');
             keySpan.setAttribute('class', 'key-span');
             let valSpan = document.createElement('td');
@@ -151,8 +156,10 @@ function showVariables(evt) {
             // valSpan.innerHTML = `${value}`;
             let editValSpan = document.createElement('span');
             editValSpan.innerHTML = '<i class="fa fa-pencil"></i>';
+            editValSpan.setAttribute('id', 'edit-val');
             let delValSpan = document.createElement('span');
             delValSpan.innerHTML = '<i class="fa fa-times"></i>';
+            delValSpan.setAttribute('id', 'del-val');
             valSpan.appendChild(editValSpan);
             valSpan.appendChild(delValSpan);
 
@@ -160,8 +167,13 @@ function showVariables(evt) {
             row.appendChild(keySpan);
             row.appendChild(valSpan);
             table.appendChild(row);
+            tableDiv.appendChild(table)
 
-            collection.appendChild(table);
+            collection.appendChild(tableDiv);
+
+            // editValSpan.addEventListener('click', editVariable);
+            // delValSpan.addEventListener('click', deleteVariable);
+
 
         }
 
@@ -180,6 +192,8 @@ addVariableBtn.addEventListener('click', addVariable);
 
 
 function showVariableForm() {
+    document.getElementById('variable-name').value = '';
+    document.getElementById('variable-address').value = '';
     container.classList.add('active');
     // addCollectionForm.style.display = "block";
     addVariableForm.classList.add('active');
@@ -197,16 +211,17 @@ function closeVariableForm() {
 function addVariable(evt) {
     let cName = addVariableBtn.data;
     let obj = localStorage.getItem(cName);
-    console.log(cName, obj)
+    // console.log(cName, obj)
     obj = JSON.parse(obj);
 
     let vName = document.getElementById('variable-name').value;
     let address = document.getElementById('variable-address').value;
-    console.log(vName, address);
+    // console.log(vName, address);
     obj[vName] = address;
-    console.log(obj)
+    // console.log(obj)
     localStorage.removeItem(cName);
     localStorage.setItem(cName, JSON.stringify(obj));
+    closeVariableForm()
 }
 
 // function showActionForm(evt) {

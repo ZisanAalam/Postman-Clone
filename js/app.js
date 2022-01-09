@@ -132,8 +132,10 @@ let submitBtn = document.getElementById('submit-btn');
 submitBtn.addEventListener('click', (e) => {
     let requestType = document.getElementById('request-type').value;
     let url = document.getElementById('url-field').value;
-    // console.log(paramscounter);
 
+    url = getUrl(url);
+
+    // console.log(url);
     if (requestType == 'GET') {
         if (paramsStatus) {
             getData(url, queryParamscounter);
@@ -183,4 +185,33 @@ function getHeaderData() {
     }
     // console.log(data);
     return data;
+}
+
+function getUrl(url) {
+    if (url.includes('{')) {
+        const regex = /{{[a-zaA-z0-9]*}}/g;
+        const found = url.match(regex);
+        // console.log(found);
+        for (let i = 0; i < found.length; i++) {
+            let index = url.indexOf(found[i]);
+            let len = found[i].length;
+            // console.log(index, len)
+            let variable = url.substr(index + 2, len - 4);
+
+            for (x in localStorage) {
+                if (localStorage.getItem(x) != null) {
+                    let obj = localStorage.getItem(x);
+                    if (obj.includes(variable)) {
+                        // console.log('working');
+                        obj = JSON.parse(obj)
+                            // console.log(found[i], obj[variable]);
+                        url = url.replace(found[i], obj[variable]);
+                        // console.log(url);
+                    }
+                }
+            }
+        }
+        return url;
+    }
+    return url
 }
