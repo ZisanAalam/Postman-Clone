@@ -250,17 +250,26 @@ textarea {
 /* The popup form - hidden by default */
 
 .popup-form {
-    display: none;
-    position: absolute;
+    /* display: none; */
+    visibility: hidden;
+    position: fixed;
     top: 20%;
     left: 50%;
-    /* transform: translateY(-50%);s */
     transform: translateX(-50%);
-    /* left: 15px; */
     border: 3px solid #f1f1f1;
-    z-index: 9;
+    /* z-index: 9; */
     box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
     background: #fff;
+    opacity: 1;
+    transition: 0.3s;
+    padding: 10px;
+}
+
+.popup-form.active {
+    top: 30%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
 }
 
 
@@ -285,7 +294,7 @@ textarea {
 .form-container input[type=text] {
     width: 100%;
     padding: 15px;
-    margin: 5px 0 22px 0;
+    margin: 5px 0 0 0;
     border: none;
     background: #f1f1f1;
 }
@@ -308,9 +317,16 @@ textarea {
     border: none;
     cursor: pointer;
     width: 200px;
-    margin-bottom: 10px;
+    margin: 20px 0;
     opacity: 0.8;
     text-align: center;
+}
+
+#collection-form-error-msg {
+    font-size: 14px;
+    color: red;
+    margin-left: 10px;
+    font-style: italic;
 }
 
 

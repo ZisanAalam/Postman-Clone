@@ -5,6 +5,7 @@ let collectionName = document.getElementById('collection-name');
 let collectionContainer = document.querySelector('.collections-container');
 let container = document.getElementById('blur');
 let addCollectionForm = document.getElementById("addCollectionsForm");
+let formErrorMsg = document.getElementById('collection-form-error-msg');
 
 addNewCollection.addEventListener('click', openForm);
 cancelCollectionBtn.addEventListener('click', closeForm);
@@ -17,36 +18,52 @@ displayCollection()
 
 function openForm() {
     container.classList.add('active');
-    addCollectionForm.style.display = "block";
+    // addCollectionForm.style.display = "block";
+    addCollectionForm.classList.add('active');
 }
 
 function closeForm() {
-    container.classList.remove('active');
-    document.getElementById("addCollectionsForm").style.display = "none";
+    // document.getElementById("addCollectionsForm").style.display = "none";
+    addCollectionForm.classList.remove('active');
+    setTimeout(() => {
+        container.classList.remove('active');
+        formErrorMsg.innerText = '';
+    }, 300)
+
+
 }
 
 function addCollection() {
     collectionContainer.innerHTML = "";
     let collectionData = JSON.stringify({});
-
     let myCollection = collectionName.value;
-    if (validateCollectionAddForm()) {
+    if (validateCollectionAddForm(myCollection)) {
         localStorage.setItem(`${myCollection}`, collectionData);
-        displayCollection();
         closeForm();
-    } else {}
+    }
+    displayCollection();
 
 
 }
 
-function validateCollectionAddForm() {
+// validate the add collection form;
+function validateCollectionAddForm(name) {
+    if (name.length === 0) {
+        formErrorMsg.innerText = 'filed cannot be empty';
+        return false;
+    }
+    for (let i = 0; i < localStorage.length; i++) {;
+        let cName = localStorage.key(i);
+        if (name === cName) {
+            formErrorMsg.innerText = 'Collection already exist';
+            return false;
+        }
+    }
     return true;
 }
 
 function displayCollection() {
-    for (let i = 0; i < localStorage.length; i++) {
-        // collectionContainer.innerHTML = localStorage.key(i);
-        // console.log(localStorage.key(i));
+    for (let i = 0; i < localStorage.length; i++) {;
         let cName = localStorage.key(i);
         let div = document.createElement('div');
         div.setAttribute('class', 'collections');
