@@ -13,22 +13,12 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" id="blur">
         <header>
 
         </header>
         <div class="side-bar">
             <div class="collection-title">Collections</div>
-
-            <div class="popup-form" id="addCollectionsForm">
-                <div action="" class="form-container">
-                    <label for="collection-name" id='collection-name-label'>Collection Name</label>
-                    <input type="text" placeholder="Enter name" name="collection-name" id="collection-name" required>
-
-                    <button type="submit" class="btn" id="add-collection-btn">Add</button>
-                    <button type="button" class="btn cancel" id="cancel-collection-btn">Cancel</button>
-                </div>
-            </div>
 
             <button id="addCollections"><span>+</span>New Collection</button>
             <div class="collections-container"></div>
@@ -101,6 +91,16 @@
 
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="popup-form" id="addCollectionsForm">
+        <div action="" class="form-container">
+            <label for="collection-name" id='collection-name-label'>Collection Name</label>
+            <input type="text" placeholder="Enter name" name="collection-name" id="collection-name" required>
+            <span id="error"></span>
+            <button type="submit" class="btn" id="add-collection-btn">Add</button>
+            <button type="button" class="btn cancel" id="cancel-collection-btn">Cancel</button>
         </div>
     </div>
 

@@ -3,6 +3,12 @@
     margin: 20px;
 }
 
+.container#blur.active {
+    filter: blur(2px);
+    pointer-events: none;
+    user-select: none;
+}
+
 
 /* 
 .request-container {
@@ -246,13 +252,15 @@ textarea {
 .popup-form {
     display: none;
     position: absolute;
-    top: 30%;
+    top: 20%;
     left: 50%;
-    transform: translateY(-50%);
+    /* transform: translateY(-50%);s */
     transform: translateX(-50%);
     /* left: 15px; */
     border: 3px solid #f1f1f1;
     z-index: 9;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    background: #fff;
 }
 
 

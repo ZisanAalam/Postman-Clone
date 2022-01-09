@@ -3,6 +3,8 @@ let addCollectionBtn = document.getElementById('add-collection-btn');
 let cancelCollectionBtn = document.getElementById('cancel-collection-btn');
 let collectionName = document.getElementById('collection-name');
 let collectionContainer = document.querySelector('.collections-container');
+let container = document.getElementById('blur');
+let addCollectionForm = document.getElementById("addCollectionsForm");
 
 addNewCollection.addEventListener('click', openForm);
 cancelCollectionBtn.addEventListener('click', closeForm);
@@ -14,11 +16,12 @@ collectionContainer.innerHTML = "";
 displayCollection()
 
 function openForm() {
-    console.log('clicked');
-    document.getElementById("addCollectionsForm").style.display = "block";
+    container.classList.add('active');
+    addCollectionForm.style.display = "block";
 }
 
 function closeForm() {
+    container.classList.remove('active');
     document.getElementById("addCollectionsForm").style.display = "none";
 }
 
@@ -27,22 +30,17 @@ function addCollection() {
     let collectionData = JSON.stringify({});
 
     let myCollection = collectionName.value;
-    localStorage.setItem(`${myCollection}`, collectionData);
+    if (validateCollectionAddForm()) {
+        localStorage.setItem(`${myCollection}`, collectionData);
+        displayCollection();
+        closeForm();
+    } else {}
 
-    // for (let i = 0; i < localStorage.length; i++) {
-    //     // collectionContainer.innerHTML = localStorage.key(i);
-    //     // console.log(localStorage.key(i));
-    //     let cName = localStorage.key(i);
-    //     let div = document.createElement('div');
-    //     let span = document.createElement('span');
-    //     span.innerHTML = '>'
-    //     div.innerHTML = cName;
-    //     collectionContainer.appendChild(div);
 
-    // }
-    displayCollection();
-    closeForm();
+}
 
+function validateCollectionAddForm() {
+    return true;
 }
 
 function displayCollection() {
