@@ -8,11 +8,40 @@
         pointer-events: none;
         user-select: none;
     }
-    /* 
-.request-container {
-    display: flex;
-} */
-    /* Style for request type */
+    
+    header {
+        display: flex;
+        background-color: #333;
+        color: white;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .myWorkSpace {
+        /* margin: 0 auto; */
+    }
+    
+    #logo {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .logo {
+        display: flex;
+        align-items: center;
+        /* margin-left: 20px; */
+        padding-left: 20px;
+    }
+    
+    .links ul {
+        display: flex;
+        list-style: none;
+    }
+    
+    .links ul li {
+        padding: 0 10px;
+        font-size: 18px;
+    }
     
     #request-type {
         padding: 10px 10px 10px 2px;
