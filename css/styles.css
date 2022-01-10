@@ -21,6 +21,8 @@
         color: white;
         align-items: center;
         justify-content: space-between;
+        padding: 10px 0;
+        ;
     }
     
     .myWorkSpace {
@@ -268,6 +270,7 @@
         color: red;
         width: 100%;
         background-color: white;
+        cursor: pointer;
     }
     
     #addCollections span {
@@ -348,7 +351,7 @@
         text-align: center;
     }
     
-    #collection-form-error-msg {
+    .error-msg {
         font-size: 14px;
         color: red;
         margin-left: 10px;
@@ -431,8 +434,10 @@
         transition: 0.5s;
     }
     
-    .collections table {
+    .variable-table {
         border-collapse: collapse;
+        width: 90%;
+        /* margin: 0px 20px; */
     }
     
     .key-span,
@@ -448,7 +453,7 @@
     .val-span {
         visibility: hidden;
         display: flex;
-        padding-left: 26px;
+        /* padding-left: 26px; */
         width: 30%;
     }
     
@@ -482,7 +487,7 @@
     }
     
     #table-div {
-        height: 100px;
+        max-height: 100px;
         overflow-y: auto;
         overflow-x: hidden;
     }

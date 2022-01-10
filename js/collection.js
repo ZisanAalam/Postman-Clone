@@ -7,30 +7,30 @@ let container = document.getElementById('blur');
 let addCollectionForm = document.getElementById("addCollectionsForm");
 
 //Edit Collection Form
-// let editCollectionForm = document.getElementById("editCollectionsForm");
-// let editCollectionBtn = document.getElementById('edit-collection-btn');
-// let cancleEditCollectionBtn = document.getElementById('cancel-edit-collection-btn');
-// let collectionNewName = document.getElementById('collection-new-name');
+let editCollectionForm = document.getElementById("editCollectionsForm");
+let editCollectionBtn = document.getElementById('edit-collection-btn');
+let cancleEditCollectionBtn = document.getElementById('cancel-edit-collection-btn');
+let collectionNewName = document.getElementById('collection-new-name');
+let formErrorMsg = document.getElementById('collection-form-error-msg');
 
+// Variable Form
 let addVariableForm = document.getElementById('addVaraiblesForm');
 let cancelBtn = document.getElementById('cancel-btn');
 let addVariableBtn = document.getElementById('add-variable-btn');
-
-let formErrorMsg = document.getElementById('collection-form-error-msg');
-
-addNewCollection.addEventListener('click', openForm);
-cancelCollectionBtn.addEventListener('click', closeForm);
-addCollectionBtn.addEventListener('click', addCollection);
 
 
 
 collectionContainer.innerHTML = "";
 displayCollection()
 
+addNewCollection.addEventListener('click', openForm);
+
 function openForm() {
+    document.getElementById('collection-name').value = '';
     container.classList.add('active');
-    // addCollectionForm.style.display = "block";
     addCollectionForm.classList.add('active');
+    cancelCollectionBtn.addEventListener('click', closeForm);
+    addCollectionBtn.addEventListener('click', addCollection);
 }
 
 function closeForm() {
@@ -122,6 +122,7 @@ function displayCollection() {
 
         div.addEventListener('click', showVariables);
         list1.addEventListener('click', showVariableForm);
+        list2.addEventListener('click', showCollectionEditForm);
         list3.addEventListener('click', deleteCollection);
         // dotSpan.addEventListener('click', showActionForm);
 
@@ -133,55 +134,64 @@ function showVariables(evt) {
     // console.log(name);
     let collection = document.getElementById(`${name}-collection`);
     let obj = localStorage.getItem(name);
+    obj = JSON.parse(obj);
+    const isEmpty = Object.keys(obj).length === 0;
+
     addVariableBtn.data = name;
     if (evt.currentTarget.children[0].innerHTML === '&gt;') {
         evt.currentTarget.children[0].innerHTML = '&or;';
-        obj = JSON.parse(obj);
-        let tableDiv = document.createElement('div');
-        tableDiv.setAttribute('id', 'table-div');
+        if (!isEmpty) {
+            let tableDiv = document.createElement('div');
+            tableDiv.setAttribute('id', 'table-div');
 
-        let table = document.createElement('table');
-        table.setAttribute('class', 'variable-table');
+            let table = document.createElement('table');
+            table.setAttribute('class', 'variable-table');
 
-        for (const [key, value] of Object.entries(obj)) {
-            // console.log(`${key}: ${value}`);
-            let row = document.createElement('tr');
-            row.setAttribute('class', 'var-rows');
-            let keySpan = document.createElement('td');
-            keySpan.setAttribute('class', 'key-span');
-            let valSpan = document.createElement('td');
-            valSpan.setAttribute('class', 'val-span')
+            for (const [key, value] of Object.entries(obj)) {
+                // console.log(`${key}: ${value}`);
+                let row = document.createElement('tr');
+                row.setAttribute('class', 'var-rows');
 
-            let txt = document.createElement('textarea');
+                let keySpan = document.createElement('td');
+                keySpan.setAttribute('class', 'key-span');
 
-            keySpan.innerHTML = `${key}`;
-            // valSpan.innerHTML = `${value}`;
-            let editValSpan = document.createElement('span');
-            editValSpan.innerHTML = '<i class="fas fa-pencil-alt"></i>';
-            editValSpan.setAttribute('id', 'edit-val');
-            let delValSpan = document.createElement('span');
-            delValSpan.innerHTML = '<i class="fa fa-times"></i>';
-            delValSpan.setAttribute('id', 'del-val');
-            valSpan.appendChild(editValSpan);
-            valSpan.appendChild(delValSpan);
+                let valSpan = document.createElement('td');
+                valSpan.setAttribute('class', 'val-span');
 
+                keySpan.innerHTML = `${key}`;
+                // valSpan.innerHTML = `${value}`;
+                let editValSpan = document.createElement('span');
+                editValSpan.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+                editValSpan.setAttribute('id', 'edit-val');
 
-            row.appendChild(keySpan);
-            row.appendChild(valSpan);
-            table.appendChild(row);
-            tableDiv.appendChild(table)
+                let delValSpan = document.createElement('span');
+                delValSpan.innerHTML = '<i class="fa fa-times"></i>';
+                delValSpan.setAttribute('id', 'del-val');
 
-            collection.appendChild(tableDiv);
-
-            // editValSpan.addEventListener('click', editVariable);
-            // delValSpan.addEventListener('click', deleteVariable);
+                valSpan.appendChild(editValSpan);
+                valSpan.appendChild(delValSpan);
 
 
+                row.appendChild(keySpan);
+                row.appendChild(valSpan);
+                table.appendChild(row);
+                tableDiv.appendChild(table)
+
+                collection.appendChild(tableDiv);
+
+                // editValSpan.addEventListener('click', editVariable);
+                // delValSpan.addEventListener('click', deleteVariable);
+
+
+            }
         }
 
     } else {
         evt.currentTarget.children[0].innerHTML = '&gt;';
-        collection.removeChild(evt.currentTarget.children[3]);
+        if (!isEmpty) {
+            // collection.removeChild(evt.currentTarget.children[3]);
+            collection.removeChild(document.getElementById('table-div'));
+        }
     }
 
 
@@ -195,17 +205,14 @@ function deleteCollection(evt) {
 }
 
 
-
-cancelBtn.addEventListener('click', closeVariableForm);
-addVariableBtn.addEventListener('click', addVariable);
-
-
 function showVariableForm() {
     document.getElementById('variable-name').value = '';
     document.getElementById('variable-address').value = '';
     container.classList.add('active');
     // addCollectionForm.style.display = "block";
     addVariableForm.classList.add('active');
+    cancelBtn.addEventListener('click', closeVariableForm);
+    addVariableBtn.addEventListener('click', addVariable);
 }
 
 function closeVariableForm() {
@@ -220,57 +227,82 @@ function closeVariableForm() {
 function addVariable(evt) {
     let cName = addVariableBtn.data;
     let obj = localStorage.getItem(cName);
-    // console.log(cName, obj)
     obj = JSON.parse(obj);
 
     let vName = document.getElementById('variable-name').value;
     let address = document.getElementById('variable-address').value;
-    // console.log(vName, address);
-    obj[vName] = address;
-    // console.log(obj)
-    localStorage.removeItem(cName);
-    localStorage.setItem(cName, JSON.stringify(obj));
-    closeVariableForm()
+    if (isValidVariable(cName, vName, address)) {
+        obj[vName] = address;
+        localStorage.removeItem(cName);
+        localStorage.setItem(cName, JSON.stringify(obj));
+        closeVariableForm();
+    }
+
 }
 
-// function showActionForm(evt) {
-//     let cName = evt.currentTarget.parentElement.children[1].innerText;
-//     document.querySelector('.old-name').innerHTML = `Collection Old Name: ${cName}`;
-//     openEditForm();
-//     editCollectionBtn.data = cName;
-//     editCollectionBtn.addEventListener('click', editCollection);
+function isValidVariable(cName, vName, url) {
+    let obj = localStorage.getItem(cName);
+    obj = JSON.parse(obj);
+    let flag = true;
+    if (Object.keys(obj).length === 0) {
+        flag = true;
+    } else {
+        if (vName === "") {
+            document.getElementById('variable-error-msg').innerHTML = 'This field cannot be empty';
+            flag = false;
+        }
+        if (url === "") {
+            document.getElementById('address-error-msg').innerHTML = 'This field cannot be empty';
+            flag = false;
+        } else if (Object.keys(obj).includes(vName)) {
+            document.getElementById('variable-error-msg').innerHTML = 'Variable name already exist';
+            flag = false;
+        }
 
-// }
+    }
+    return flag;
+}
 
-// function openEditForm() {
-//     container.classList.add('active');
-//     // addCollectionForm.style.display = "block";
-//     editCollectionForm.classList.add('active');
-// }
+function showCollectionEditForm(evt) {
+    let collection = evt.currentTarget.parentElement.parentElement;
+    let cName = collection.getAttribute('id').split('-')[0];
+    console.log(cName);
+    document.querySelector('.old-name').innerHTML = `Collection Current Name: ${cName}`;
+    openEditForm();
+    editCollectionBtn.data = cName;
+    editCollectionBtn.addEventListener('click', editCollection);
+    cancleEditCollectionBtn.addEventListener('click', closeEditForm);
 
-// function closeEditForm() {
-//     setTimeout(() => {
-//             container.classList.remove('active');
-//             formErrorMsg.innerText = '';
-//         }, 300)
-//         // addCollectionForm.style.display = "block";
-//     editCollectionForm.classList.remove('active');
-// }
+}
+
+function openEditForm() {
+    container.classList.add('active');
+    // addCollectionForm.style.display = "block";
+    editCollectionForm.classList.add('active');
+}
+
+function closeEditForm() {
+    setTimeout(() => {
+            container.classList.remove('active');
+            formErrorMsg.innerText = '';
+        }, 300)
+        // addCollectionForm.style.display = "block";
+    editCollectionForm.classList.remove('active');
+}
 
 
-// cancleEditCollectionBtn.addEventListener('click', closeEditForm);
-
-// function editCollection(evt) {
-//     let cName = editCollectionBtn.data;
-//     // console.log(cName);
-//     let val = evt.currentTarget.parentElement.children[2].value;
-//     collectionContainer.innerHTML = "";
-//     let name = collectionNewName.value;
-//     if (validateCollectionAddForm(val)) {
-//         let item = localStorage.getItem(val);
-//         localStorage.setItem(`${name}`, item);
-//         localStorage.removeItem(cName);
-//         closeEditForm();
-//     }
-//     displayCollection();
-// }
+function editCollection(evt) {
+    let cName = editCollectionBtn.data;
+    // console.log(cName);
+    let val = evt.currentTarget.parentElement.children[2].value;
+    collectionContainer.innerHTML = "";
+    let name = collectionNewName.value;
+    if (validateCollectionAddForm(val)) {
+        let item = localStorage.getItem(cName);
+        console.log(item);
+        localStorage.setItem(`${name}`, item);
+        localStorage.removeItem(cName);
+        closeEditForm();
+    }
+    displayCollection();
+}

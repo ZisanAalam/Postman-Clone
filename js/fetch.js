@@ -67,6 +67,10 @@ function postData(url, data) {
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
             document.getElementById('response').value = text;
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            document.getElementById('response').value = error;
         });
 
 }
@@ -106,8 +110,12 @@ function updateResponseDetails(response) {
     let st = response.status;
     if (st === 404) {
         document.getElementById('response-status').style.color = 'red';
+        st = st + ' Not Found';
+    } else {
+        st = st + ' Ok';
     }
-    document.getElementById('response-status').textContent = response.status;
+
+    document.getElementById('response-status').textContent = st;
     document.getElementById('response-time').textContent = `${endTime-startTime}ms`;
     // document.getElementById('response-size').textContent = dataSize + 'KB';
 

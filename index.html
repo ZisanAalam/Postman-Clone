@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/styles.css">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 </head>
 
@@ -46,7 +45,6 @@
 
         </div>
         <div class="main-container">
-            <!-- <form action=""> -->
             <div class="request-container">
                 <select id="request-type">
                       <option value="GET" selected>GET</option>
@@ -54,7 +52,7 @@
                       <option value="PUT">PUT</option>
                       <option value="DELETE">DELETE</option>
                     </select>
-                <input type="url" placeholder="https://example.com" id="url-field" required/>
+                <input type="url" placeholder="https://example.com" id="url-field" />
                 <button type="submit" id="submit-btn">Send</button>
             </div>
 
@@ -87,7 +85,6 @@
                     <textarea name="" id="json-body" cols="100" rows="5"></textarea>
                 </div>
             </div>
-            <!-- </form> -->
 
 
             <div class="response-box">
@@ -118,35 +115,35 @@
     <div class="popup-form" id="addCollectionsForm">
         <div class="form-container">
             <label for="collection-name" id='collection-name-label'>Collection Name</label>
-            <input type="text" placeholder="Enter name" name="collection-name" id="collection-name" required>
-            <div><span id="collection-form-error-msg"></span></div>
+            <input type="text" placeholder="Enter name" name="collection-name" id="collection-name">
+            <div><span id="collection-form-error-msg" class="error-msg"></span></div>
             <button type="submit" class="btn" id="add-collection-btn">Add</button>
             <button type="button" class="btn cancel" id="cancel-collection-btn">Cancel</button>
         </div>
     </div>
 
 
-    <!-- <div class="popup-form edit" id="editCollectionsForm">
+    <div class="popup-form edit" id="editCollectionsForm">
         <div class="form-container">
             <div class="old-name"></div>
             <label for="collection-name" id='collection-name-label'>Collection New Name</label>
-            <input type="text" placeholder="Enter name" name="collection-name" id="collection-new-name" required>
+            <input type="text" placeholder="Enter name" name="collection-name" id="collection-new-name">
             <div><span id="collection-form-error-msg"></span></div>
             <button type="submit" class="btn" id="edit-collection-btn">Edit</button>
             <button type="button" class="btn cancel" id="cancel-edit-collection-btn">Cancel</button>
         </div>
-    </div> -->
+    </div>
 
     <div class="popup-form variables" id="addVaraiblesForm">
         <div class="form-container">
 
             <label for="variable-name" id='variable-name-label'>Variable Name</label>
-            <input type="text" placeholder="Enter name" name="variable-name" id="variable-name" required>
-            <div><span id="variable-error-msg"></span></div>
+            <input type="text" placeholder="Enter name" name="variable-name" id="variable-name">
+            <div><span class="error-msg" id="variable-error-msg"></span></div>
 
-            <label for="address" id='address'>Address</label>
-            <input type="text" placeholder="https://example.com" name="address" id="variable-address" required>
-            <div><span id="address-error-msg"></span></div>
+            <label for="address" id='address'>URL</label>
+            <input type="text" placeholder="https://example.com" name="address" id="variable-address">
+            <div><span class="error-msg" id="address-error-msg"></span></div>
 
             <button type="submit" class="btn" id="add-variable-btn">Add</button>
             <button type="button" class="btn cancel" id="cancel-btn">Cancel</button>
