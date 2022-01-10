@@ -80,6 +80,7 @@ function displayCollection() {
         let div = document.createElement('div');
         div.setAttribute('class', 'collections');
         div.setAttribute('id', `${cName}-collection`);
+        // div.setAttribute('id', `${cName}`);
 
         let arrowSpan = document.createElement('span');
         arrowSpan.setAttribute('class', 'arrows');
@@ -121,6 +122,7 @@ function displayCollection() {
 
         div.addEventListener('click', showVariables);
         list1.addEventListener('click', showVariableForm);
+        list3.addEventListener('click', deleteCollection);
         // dotSpan.addEventListener('click', showActionForm);
 
     }
@@ -155,7 +157,7 @@ function showVariables(evt) {
             keySpan.innerHTML = `${key}`;
             // valSpan.innerHTML = `${value}`;
             let editValSpan = document.createElement('span');
-            editValSpan.innerHTML = '<i class="fa fa-pencil"></i>';
+            editValSpan.innerHTML = '<i class="fas fa-pencil-alt"></i>';
             editValSpan.setAttribute('id', 'edit-val');
             let delValSpan = document.createElement('span');
             delValSpan.innerHTML = '<i class="fa fa-times"></i>';
@@ -183,6 +185,13 @@ function showVariables(evt) {
     }
 
 
+}
+
+function deleteCollection(evt) {
+    let collection = evt.currentTarget.parentElement.parentElement;
+    let cName = collection.getAttribute('id').split('-')[0];
+    collectionContainer.removeChild(collection)
+    localStorage.removeItem(cName);
 }
 
 

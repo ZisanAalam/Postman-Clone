@@ -1,12 +1,12 @@
 .side-bar {
-    width: 20%;
-    border: 1px solid grey;
+    width: 25%;
+    /* border: 1px solid grey; */
     /* position: relative; */
 }
 
 .main-container {
-    width: 80%;
+    width: 75%;
     /* margin: 20px auto; */
-    border: 1px solid grey;
+    /* border: 1px solid grey; */
     padding-left: 10px;
 }
