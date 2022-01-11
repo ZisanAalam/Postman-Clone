@@ -321,6 +321,7 @@
     
     .collections:hover .collection-name {
         color: #505050;
+        cursor: pointer;
     }
     /* Full-width input fields */
     
@@ -382,13 +383,16 @@
     /* sytles for arrow */
     
     .arrows {
-        padding-right: 10px;
+        padding: 10px 5px 10px 5px;
         font-size: 16px;
         color: #888;
+        cursor: pointer;
     }
     
     .collection-name {
         color: #888;
+        /* padding: 10px 100px 10px 5px; */
+        padding: 4% 30% 4% 2%;
     }
     
     .collections:hover {

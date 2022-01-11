@@ -84,6 +84,7 @@ function displayCollection() {
 
         let arrowSpan = document.createElement('span');
         arrowSpan.setAttribute('class', 'arrows');
+        arrowSpan.setAttribute('id', `${cName}-arrow`);
 
         let contentSpan = document.createElement('span');
         contentSpan.setAttribute('class', 'collection-name');
@@ -120,7 +121,9 @@ function displayCollection() {
         collectionContainer.appendChild(div);
         // div.name = cName;
 
-        div.addEventListener('click', showVariables);
+        // div.addEventListener('click', showVariables);
+        arrowSpan.addEventListener('click', showVariables);
+        contentSpan.addEventListener('click', showVariables);
         list1.addEventListener('click', showVariableForm);
         list2.addEventListener('click', showCollectionEditForm);
         list3.addEventListener('click', deleteCollection);
@@ -129,17 +132,67 @@ function displayCollection() {
     }
 }
 
+function deleteCollection(evt) {
+    let collection = evt.currentTarget.parentElement.parentElement;
+    let cName = collection.getAttribute('id').split('-')[0];
+    collectionContainer.removeChild(collection)
+    localStorage.removeItem(cName);
+}
+
+function showCollectionEditForm(evt) {
+    let collection = evt.currentTarget.parentElement.parentElement;
+    let cName = collection.getAttribute('id').split('-')[0];
+    document.querySelector('.old-name').innerHTML = `Collection Current Name: ${cName}`;
+    openEditForm();
+    editCollectionBtn.data = cName;
+    editCollectionBtn.addEventListener('click', editCollection);
+    cancleEditCollectionBtn.addEventListener('click', closeEditForm);
+
+}
+
+function openEditForm() {
+    container.classList.add('active');
+    // addCollectionForm.style.display = "block";
+    editCollectionForm.classList.add('active');
+}
+
+function closeEditForm() {
+    setTimeout(() => {
+            container.classList.remove('active');
+            formErrorMsg.innerText = '';
+        }, 300)
+        // addCollectionForm.style.display = "block";
+    editCollectionForm.classList.remove('active');
+}
+
+
+function editCollection(evt) {
+    let cName = editCollectionBtn.data;
+    let val = evt.currentTarget.parentElement.children[2].value;
+    collectionContainer.innerHTML = "";
+    let name = collectionNewName.value;
+    if (validateCollectionAddForm(val)) {
+        let item = localStorage.getItem(cName);
+        localStorage.setItem(`${name}`, item);
+        localStorage.removeItem(cName);
+        closeEditForm();
+    }
+    displayCollection();
+}
+
+
 function showVariables(evt) {
-    let name = evt.currentTarget.children[1].innerHTML;
-    // console.log(name);
+
+    console.log(evt);
+    let name = evt.currentTarget.parentElement.children[1].innerHTML;
     let collection = document.getElementById(`${name}-collection`);
     let obj = localStorage.getItem(name);
     obj = JSON.parse(obj);
     const isEmpty = Object.keys(obj).length === 0;
 
     addVariableBtn.data = name;
-    if (evt.currentTarget.children[0].innerHTML === '&gt;') {
-        evt.currentTarget.children[0].innerHTML = '&or;';
+    if (evt.currentTarget.parentElement.children[0].innerHTML === '&gt;') {
+        evt.currentTarget.parentElement.children[0].innerHTML = '&or;';
         if (!isEmpty) {
             let tableDiv = document.createElement('div');
             tableDiv.setAttribute('id', 'table-div');
@@ -148,7 +201,6 @@ function showVariables(evt) {
             table.setAttribute('class', 'variable-table');
 
             for (const [key, value] of Object.entries(obj)) {
-                // console.log(`${key}: ${value}`);
                 let row = document.createElement('tr');
                 row.setAttribute('class', 'var-rows');
 
@@ -180,14 +232,15 @@ function showVariables(evt) {
                 collection.appendChild(tableDiv);
 
                 // editValSpan.addEventListener('click', editVariable);
-                // delValSpan.addEventListener('click', deleteVariable);
+                delValSpan.data = name;
+                delValSpan.addEventListener('click', deleteVariable);
 
 
             }
         }
 
     } else {
-        evt.currentTarget.children[0].innerHTML = '&gt;';
+        evt.currentTarget.parentElement.children[0].innerHTML = '&gt;';
         if (!isEmpty) {
             // collection.removeChild(evt.currentTarget.children[3]);
             collection.removeChild(document.getElementById('table-div'));
@@ -196,14 +249,6 @@ function showVariables(evt) {
 
 
 }
-
-function deleteCollection(evt) {
-    let collection = evt.currentTarget.parentElement.parentElement;
-    let cName = collection.getAttribute('id').split('-')[0];
-    collectionContainer.removeChild(collection)
-    localStorage.removeItem(cName);
-}
-
 
 function showVariableForm() {
     document.getElementById('variable-name').value = '';
@@ -263,46 +308,15 @@ function isValidVariable(cName, vName, url) {
     return flag;
 }
 
-function showCollectionEditForm(evt) {
-    let collection = evt.currentTarget.parentElement.parentElement;
-    let cName = collection.getAttribute('id').split('-')[0];
-    console.log(cName);
-    document.querySelector('.old-name').innerHTML = `Collection Current Name: ${cName}`;
-    openEditForm();
-    editCollectionBtn.data = cName;
-    editCollectionBtn.addEventListener('click', editCollection);
-    cancleEditCollectionBtn.addEventListener('click', closeEditForm);
-
-}
-
-function openEditForm() {
-    container.classList.add('active');
-    // addCollectionForm.style.display = "block";
-    editCollectionForm.classList.add('active');
-}
-
-function closeEditForm() {
-    setTimeout(() => {
-            container.classList.remove('active');
-            formErrorMsg.innerText = '';
-        }, 300)
-        // addCollectionForm.style.display = "block";
-    editCollectionForm.classList.remove('active');
-}
-
-
-function editCollection(evt) {
-    let cName = editCollectionBtn.data;
-    // console.log(cName);
-    let val = evt.currentTarget.parentElement.children[2].value;
-    collectionContainer.innerHTML = "";
-    let name = collectionNewName.value;
-    if (validateCollectionAddForm(val)) {
-        let item = localStorage.getItem(cName);
-        console.log(item);
-        localStorage.setItem(`${name}`, item);
-        localStorage.removeItem(cName);
-        closeEditForm();
-    }
-    displayCollection();
+function deleteVariable(evt) {
+    let key = evt.currentTarget.parentElement.parentElement.children[0].innerHTML;
+    let cName = evt.currentTarget.data;
+    let obj = localStorage.getItem(cName);
+    obj = JSON.parse(obj);
+    delete obj[key];
+    // localStorage.removeItem(cName);
+    localStorage.setItem(cName, JSON.stringify(obj));
+    // showVariables();
+    location.reload();
+    // console.log(evt.currentTarget.parentElement.parentElement.parentElement.parentElement);
 }

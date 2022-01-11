@@ -104,10 +104,35 @@ function putData(url, data) {
 
 }
 
+// DELETE request
+function deleteData(url) {
+
+    loading.classList.add('activate')
+    startTime = new Date().getTime();
+
+    fetch(url, { method: 'DELETE' })
+        .then(async response => {
+            response.myData = new Date().getTime();
+            updateResponseDetails(response);
+            const data = await response.text();
+            if (!response.ok) {
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
+            loading.classList.remove('activate')
+            document.getElementById('response').value = 'Delete successful';
+        })
+        .catch(error => {
+            loading.classList.remove('activate')
+            document.getElementById('response').value = `Error: ${error}`;
+        });
+}
+
 // update response details like status, time and size
 function updateResponseDetails(response) {
     endTime = response.myData;
     let st = response.status;
+    document.getElementById('response-status').style.color = 'green';
     if (st === 404) {
         document.getElementById('response-status').style.color = 'red';
         st = st + ' Not Found';

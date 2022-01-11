@@ -137,11 +137,11 @@ submitBtn.addEventListener('click', (e) => {
 
     // console.log(url);
     if (requestType == 'GET') {
-        if (paramsStatus) {
-            getData(url, queryParamscounter);
+        // if (paramsStatus) {
+        getData(url, queryParamscounter);
 
 
-        }
+        // }
 
     } else if (requestType == 'POST') {
         let data;
@@ -165,6 +165,8 @@ submitBtn.addEventListener('click', (e) => {
             data = JSON.stringify({});
         }
         putData(url, data);
+    } else if (requestType === 'DELETE') {
+        deleteData(url);
     }
 
 
