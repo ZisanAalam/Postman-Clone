@@ -86,9 +86,6 @@ addKeyValuePairParamsBtn.addEventListener('click', () => {
     removeBtn.addEventListener('click', () => {
         paramsParameterContainer.removeChild(div);
     })
-
-
-
 })
 
 addKeyValuePairHeaderBtn.addEventListener('click', () => {

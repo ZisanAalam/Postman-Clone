@@ -97,13 +97,26 @@
                     </div>
                 </div>
                 <div class="response-details">
-                    <div class="response-detail-items" id="status">Status: <span id="response-status"></span> </div>
-                    <div class="response-detail-items" id="time">Time: <span id="response-time"></span> </div>
-                    <div class="response-detail-items" id="size">size: <span id='response-size'></span> </div>
+                    <div class="response-format">
+                        <ul>
+                            <li id="raw">Raw</li>
+                            <li id="pretty">Pretty</li>
+                        </ul>
+                    </div>
+                    <div class="status">
+                        <div class="response-detail-items" id="status">Status: <span id="response-status"></span> </div>
+                        <div class="response-detail-items" id="time">Time: <span id="response-time"></span> </div>
+                        <div class="response-detail-items" id="size">size: <span id='response-size'></span> </div>
+                    </div>
+
                 </div>
-                <textarea name="" id="response" cols="100" rows="10">
+                <!-- <textarea name="" id="response" cols="100" rows="10">
                     Your response will appear hear
-                </textarea>
+                </textarea> -->
+
+                <pre id="response">
+                    Your response will appear here.
+                </pre>
 
                 <div class="response-header-containter">
 

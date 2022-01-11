@@ -35,7 +35,9 @@ function getData(url, queryParamscounter) {
         .then(data => {
             document.getElementById('response-size').textContent = data.length + 'B';
             loading.classList.remove('activate')
-            document.getElementById('response').value = data;
+                // document.getElementById('response').value = data;
+                // document.getElementById('response').innerHTML = data;
+            formatResponse(data);
         })
 
 
@@ -66,7 +68,8 @@ function postData(url, data) {
         .then((text) => {
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
-            document.getElementById('response').value = text;
+            // document.getElementById('response').value = text;
+            formatResponse(data);
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -99,7 +102,8 @@ function putData(url, data) {
         .then((text) => {
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
-            document.getElementById('response').value = text;
+            // document.getElementById('response').value = text;
+            formatResponse(data);
         });
 
 }
@@ -120,7 +124,7 @@ function deleteData(url) {
                 return Promise.reject(error);
             }
             loading.classList.remove('activate')
-            document.getElementById('response').value = 'Delete successful';
+            document.getElementById('response').innerHTML = 'Delete successful';
         })
         .catch(error => {
             loading.classList.remove('activate')
@@ -193,3 +197,40 @@ String.prototype.escapeSpecialChars = function() {
         .replace(/\\f/g, '')
         .replace(/\s+/g, '');
 };
+
+function formatResponse(data) {
+    let pretty = document.getElementById('pretty');
+    let raw = document.getElementById('raw');
+    let responseContainer = document.getElementById('response');
+
+    responseContainer.innerHTML = data;
+    raw.addEventListener('click', () => {
+        responseContainer.innerHTML = data;
+    })
+    pretty.addEventListener('click', () => {
+        let newData = syntaxHighlight(data);
+        responseContainer.innerHTML = newData;
+    })
+}
+
+function syntaxHighlight(data) {
+    data = data.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    return data.replace(
+        /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+        function(match) {
+            let cls = 'number'
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key'
+                } else {
+                    cls = 'string'
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean'
+            } else if (/null/.test(match)) {
+                cls = 'null'
+            }
+            return '<span class="' + cls + '">' + match + '</span>'
+        },
+    )
+}
