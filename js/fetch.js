@@ -3,6 +3,7 @@ let endTime;
 
 let loading = document.getElementById('loading');
 let responseHeaderContainer = document.querySelector('.response-header-containter');
+let response = document.getElementById('response');
 
 
 function getData(url, queryParamscounter) {
@@ -24,23 +25,37 @@ function getData(url, queryParamscounter) {
         }
     }
     startTime = new Date().getTime();
-
+    // Fetch GET request with error handling
     fetch(url)
-        .then((response) => {
+        .then(async response => {
             response.myData = new Date().getTime();
             updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
-            return response.text();
+            let resHeaderType = response.headers.get('content-type');
+            let isJson = resHeaderType.includes('application/json') ? true : false;
+            const data = isJson ? await response.text() : null;
 
-        }).catch(e => e.response)
-        .then(data => {
-            document.getElementById('response-size').textContent = data.length + 'B';
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
             loading.classList.remove('activate')
-                // document.getElementById('response').value = data;
-                // document.getElementById('response').innerHTML = data;
+            document.getElementById('response-size').textContent = data.length + 'B';
             formatResponse(data);
         })
+        .catch(error => {
 
+            loading.classList.remove('activate')
+            if (error === 404) {
+                document.getElementById('response').innerHTML = `<span style="color:red">Error: ${error}<span>`;
+            } else {
+                networkError();
+            }
+
+
+        });
 
 
 }
@@ -61,21 +76,36 @@ function postData(url, data) {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
-        .then(response => {
+        .then(async response => {
             response.myData = new Date().getTime();
+            updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
-            return response.text()
-        })
-        .then((text) => {
+            let resHeaderType = response.headers.get('content-type');
+            let isJson = resHeaderType.includes('application/json') ? true : false;
+            const data = isJson ? await response.text() : null;
+
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
-            // document.getElementById('response').value = text;
             formatResponse(data);
         })
-        .catch((error) => {
-            console.error('Error:', error);
-            document.getElementById('response').value = error;
+        .catch(error => {
+
+            loading.classList.remove('activate')
+            if (error === 400) {
+                document.getElementById('response').innerHTML = `<span style="color:red">Error: ${error}<span>`;
+            } else {
+                networkError();
+            }
+
+
         });
+
 
 }
 
@@ -95,16 +125,32 @@ function putData(url, data) {
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
-        .then(response => {
+        .then(async response => {
             response.myData = new Date().getTime();
+            updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
-            return response.text()
-        })
-        .then((text) => {
+            let resHeaderType = response.headers.get('content-type');
+            let isJson = resHeaderType.includes('application/json') ? true : false;
+            const data = isJson ? await response.text() : null;
+
+            // check for error response
+            if (!response.ok) {
+                // get error message from body or default to response status
+                const error = (data && data.message) || response.status;
+                return Promise.reject(error);
+            }
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
-            // document.getElementById('response').value = text;
             formatResponse(data);
+        })
+        .catch(error => {
+
+            loading.classList.remove('activate')
+            if (error === 400) {
+                document.getElementById('response').innerHTML = `<span style="color:red">Error: ${error}<span>`;
+            } else {
+                networkError();
+            }
         });
 
 }
@@ -160,6 +206,7 @@ function updateResponseDetails(response) {
 //Show header Informations
 function updateResponseHeaderContainer(headers) {
     responseHeaderContainer.innerHTML = "";
+
     let headerTable = document.createElement('table');
     Object.entries(headers).forEach(([key, value]) => {
         let tableRow = document.createElement('tr');
@@ -242,4 +289,21 @@ function syntaxHighlight(data) {
             return '<span class="' + cls + '">' + match + '</span>'
         },
     )
+}
+
+function networkError() {
+
+    let img = document.createElement('img');
+    img.setAttribute('class', 'network-error-img');
+    img.src =
+        'images/error.JPG';
+
+
+    let span = document.createElement('div');
+    span.setAttribute('class', 'network-error-msg');
+    span.innerHTML = 'Network Error : Could not send request';
+
+    response.appendChild(img);
+    response.appendChild(span);
+    // down.innerHTML = "Image Element Added.";
 }

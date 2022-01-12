@@ -58,6 +58,7 @@ let headerParamsCounter = 0;
 
 addKeyValuePairParamsBtn.addEventListener('click', () => {
     let div = document.createElement('div');
+    div.setAttribute('class', 'params-div')
     queryParamscounter++;
     let key = document.createElement('input');
     let value = document.createElement('input');
@@ -127,8 +128,14 @@ addKeyValuePairHeaderBtn.addEventListener('click', () => {
 let submitBtn = document.getElementById('submit-btn');
 
 submitBtn.addEventListener('click', (e) => {
+    clearResponse();
+
     let requestType = document.getElementById('request-type').value;
     let url = document.getElementById('url-field').value;
+
+    if (url === "") {
+        document.getElementById('url-field').style.border = '1px solid red';
+    }
 
     url = getUrl(url);
 
@@ -142,30 +149,48 @@ submitBtn.addEventListener('click', (e) => {
 
     } else if (requestType == 'POST') {
         let data;
+        let flag = true;
         if (bodyStatus) {
             data = document.getElementById('json-body').value.trim();
+            flag = isValidJson(data);
+
         } else if (headerStatus) {
             data = JSON.stringify(getHeaderData());
 
         } else {
             data = JSON.stringify({});
         }
-        postData(url, data);
-    } else if (requestType == 'PUT') {
+
+        if (flag) {
+            postData(url, data);
+        } else {
+            invalidJsonBodyResponse();
+        }
+
+    }
+    // PUT Request 
+    else if (requestType == 'PUT') {
         let data;
+        let flag = true;
         if (bodyStatus) {
             data = document.getElementById('json-body').value.trim();
+            flag = isValidJson(data);
         } else if (headerStatus) {
             data = JSON.stringify(getHeaderData());
 
         } else {
             data = JSON.stringify({});
         }
-        putData(url, data);
-    } else if (requestType === 'DELETE') {
+        if (flag) {
+            postData(url, data);
+        } else {
+            invalidJsonBodyResponse();
+        }
+    }
+    // Delete Request 
+    else if (requestType === 'DELETE') {
         deleteData(url);
     }
-
 
 
 });
@@ -188,7 +213,7 @@ function getHeaderData() {
 
 function getUrl(url) {
     if (url.includes('{')) {
-        const regex = /{{[a-zaA-z0-9]*}}/g;
+        const regex = /{{[a-zaA-z0-9-_]*}}/g;
         const found = url.match(regex);
         // console.log(found);
         for (let i = 0; i < found.length; i++) {
@@ -214,3 +239,39 @@ function getUrl(url) {
     }
     return url
 }
+
+function isValidJson(json) {
+    try {
+        JSON.parse(json);
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+function invalidJsonBodyResponse() {
+    let errorSpan = document.getElementById('json-body__error-msg');
+    let jsonBody = document.getElementById('json-body');
+    errorSpan.classList.add('active');
+    jsonBody.style.borderColor = 'red';
+    setTimeout(() => {
+        errorSpan.classList.remove('active');
+    }, 1000);
+
+}
+
+function clearResponse() {
+    document.getElementById('response').innerHTML = '';
+    document.getElementById('response-status').textContent = '';
+    document.getElementById('response-time').textContent = '';
+    document.getElementById('response-size').innerHTML = '';
+    document.getElementById('json-body').style.borderColor = '#ccc';
+    // document.getElementById('json-body__error-msg').innerHTML = '';
+}
+
+
+// Change border color of json body on focus
+document.getElementById('json-body').addEventListener('focus', () => {
+    document.getElementById('json-body').style.removeProperty('borderColor');
+    document.getElementById('json-body').style.borderColor = '#ccc';
+})
