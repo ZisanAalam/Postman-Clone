@@ -136,16 +136,22 @@ function deleteData(url) {
 function updateResponseDetails(response) {
     endTime = response.myData;
     let st = response.status;
+    let timeUnit = 'ms';
+    let time = endTime - startTime;
+    if (time > 1000) {
+        time = time / 1000;
+        timeUnit = 's';
+    }
     document.getElementById('response-status').style.color = 'green';
     if (st === 404) {
         document.getElementById('response-status').style.color = 'red';
         st = st + ' Not Found';
     } else {
-        st = st + ' Ok';
+        st = st + ' OK';
     }
 
     document.getElementById('response-status').textContent = st;
-    document.getElementById('response-time').textContent = `${endTime-startTime}ms`;
+    document.getElementById('response-time').textContent = `${time}${timeUnit}`;
     // document.getElementById('response-size').textContent = dataSize + 'KB';
 
 }
@@ -163,25 +169,10 @@ function updateResponseHeaderContainer(headers) {
         let valueElement = document.createElement('td');
         valueElement.textContent = value;
         tableRow.appendChild(valueElement);
-        // console.log(key, value);
         headerTable.appendChild(tableRow);
     })
     responseHeaderContainer.appendChild(headerTable);
 }
-const getSizeInBytes = obj => {
-    let str = null;
-    if (typeof obj === 'string') {
-        // If obj is a string, then use it
-        str = obj;
-    } else {
-        // Else, make obj into a string
-        str = JSON.stringify(obj);
-    }
-    // Get the length of the Uint8Array
-    const bytes = new TextEncoder().encode(str).length;
-    console.log(bytes);
-    return bytes;
-};
 
 
 //removes special characters from the data
@@ -201,19 +192,27 @@ String.prototype.escapeSpecialChars = function() {
 function formatResponse(data) {
     let pretty = document.getElementById('pretty');
     let raw = document.getElementById('raw');
+    let minimal = document.getElementById('minimal');
     let responseContainer = document.getElementById('response');
 
     responseContainer.innerHTML = data;
     raw.addEventListener('click', () => {
         responseContainer.innerHTML = data;
-    })
+    });
     pretty.addEventListener('click', () => {
         let newData = syntaxHighlight(data);
         responseContainer.innerHTML = newData;
-    })
+    });
+
+    minimal.addEventListener('click', () => {
+        let d = JSON.parse(data);
+        d = JSON.stringify(d);
+        responseContainer.innerHTML = d;
+    });
 }
 
 function syntaxHighlight(data) {
+    data = JSON.stringify(JSON.parse(data), null, 4);
     data = data.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     return data.replace(
         /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
