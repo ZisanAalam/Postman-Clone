@@ -217,17 +217,17 @@ function syntaxHighlight(data) {
     return data.replace(
         /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
         function(match) {
-            let cls = 'number'
+            let cls = 'response-number'
             if (/^"/.test(match)) {
                 if (/:$/.test(match)) {
-                    cls = 'key'
+                    cls = 'response-key'
                 } else {
-                    cls = 'string'
+                    cls = 'response-string'
                 }
             } else if (/true|false/.test(match)) {
-                cls = 'boolean'
+                cls = 'response-boolean'
             } else if (/null/.test(match)) {
-                cls = 'null'
+                cls = 'response-null'
             }
             return '<span class="' + cls + '">' + match + '</span>'
         },

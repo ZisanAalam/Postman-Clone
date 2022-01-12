@@ -515,23 +515,23 @@
         font-family: "Inconsolata", monospace;
     }
     
-    .string {
+    .response-string {
         color: #2F3F96;
     }
     
-    .number {
+    .response-number {
         color: #2C604A;
     }
     
-    .boolean {
+    .response-boolean {
         color: blue;
     }
     
-    .null {
+    .response-null {
         color: Magenta;
     }
     
-    .key {
+    .response-key {
         color: #781D0B;
     }
     /* 
