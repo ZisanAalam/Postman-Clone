@@ -174,7 +174,7 @@
         list-style: none;
     }
     
-    .response-format ul li {
+    .response-format .formater-list .items {
         padding: 0px 10px;
         font-size: 14px;
         color: #888;
@@ -183,6 +183,11 @@
     .response-format ul li:hover {
         color: #333;
         cursor: pointer;
+    }
+    
+    .response-format .formater-list .items.active {
+        border-bottom: 3px solid #F26B3A;
+        color: #333;
     }
     
     .response-detail-items {

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Postman Clone</title>
+    <link rel="icon" href="images/icon.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/layout.css">
@@ -62,7 +63,7 @@
                         Params
                     </li>
                     <li class="tab-items" id="header-tab" onclick="displayContent(event,'header-content')">
-                        Headers
+                        Body Form Data
                     </li>
                     <li class="tab-items" id="body-tab" onclick="displayContent(event,'body-content')">
                         Body
@@ -77,11 +78,12 @@
                     <button id='add-key-value-pair-params'>Add</button>
                 </div>
                 <div class="tab-content" id="header-content">
-                    <h4>Headers</h4>
+                    <h4>Body Form Data</h4>
                     <div class="params" id="header-parameters"></div>
                     <button id='add-key-value-pair-header'>Add</button>
                 </div>
                 <div class="tab-content" id="body-content">
+                    <h4>Json Body</h4>
                     <textarea name="" id="json-body" cols="100" rows="5"></textarea>
                 </div>
             </div>
@@ -98,10 +100,10 @@
                 </div>
                 <div class="response-details">
                     <div class="response-format">
-                        <ul>
-                            <li id="raw">Raw</li>
-                            <li id="pretty">Pretty</li>
-                            <li id="minimal">Minimal</li>
+                        <ul class="formater-list">
+                            <li class="items" id="raw">Raw</li>
+                            <li class="items" id="pretty">Pretty</li>
+                            <li class="items" id="minimal">Minimal</li>
                         </ul>
                     </div>
                     <div class="status">
@@ -109,6 +111,7 @@
                         <div class="response-detail-items" id="time">Time: <span id="response-time"></span> </div>
                         <div class="response-detail-items" id="size">size: <span id='response-size'></span> </div>
                     </div>
+
 
                 </div>
                 <!-- <textarea name="" id="response" cols="100" rows="10">

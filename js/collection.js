@@ -271,8 +271,7 @@ function closeVariableForm() {
 }
 
 function addVariable(evt) {
-    let cName = evt.currentTarget.data
-        // let cName = document.getElementById('action-list-item1').data;
+    let cName = evt.currentTarget.data;
     let obj = localStorage.getItem(cName);
     obj = JSON.parse(obj);
 
@@ -318,7 +317,8 @@ function deleteVariable(evt) {
     delete obj[key];
     // localStorage.removeItem(cName);
     localStorage.setItem(cName, JSON.stringify(obj));
-    // showVariables();
-    location.reload();
-    // console.log(evt.currentTarget.parentElement.parentElement.parentElement.parentElement);
+    // MyCollection - collection
+    // document.getElementById(`${cName}-collection`).children[0].innerHTML = '&gt;';
+    // document.getElementById(`${cName}-collection`).children[3].innerHTML = '';
+
 }

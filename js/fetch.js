@@ -198,14 +198,23 @@ function formatResponse(data) {
 
     responseContainer.innerHTML = data;
     raw.addEventListener('click', () => {
-        responseContainer.innerHTML = data;
+        raw.classList.add('active');
+        pretty.classList.remove('active');
+        minimal.classList.remove('active');
+        responseContainer.innerHTML = JSON.stringify(JSON.parse(data), null, 4);
     });
     pretty.addEventListener('click', () => {
+        raw.classList.remove('active');
+        pretty.classList.add('active');
+        minimal.classList.remove('active');
         let newData = syntaxHighlight(data);
         responseContainer.innerHTML = newData;
     });
 
     minimal.addEventListener('click', () => {
+        raw.classList.remove('active');
+        pretty.classList.remove('active');
+        minimal.classList.add('active');
         let d = JSON.parse(data);
         d = JSON.stringify(d);
         responseContainer.innerHTML = d;
