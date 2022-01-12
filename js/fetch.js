@@ -24,6 +24,7 @@ function getData(url, queryParamscounter) {
         }
     }
     startTime = new Date().getTime();
+
     fetch(url)
         .then((response) => {
             response.myData = new Date().getTime();
@@ -139,7 +140,7 @@ function updateResponseDetails(response) {
     let timeUnit = 'ms';
     let time = endTime - startTime;
     if (time > 1000) {
-        time = time / 1000;
+        time = (time / 1000).toFixed(2);;
         timeUnit = 's';
     }
     document.getElementById('response-status').style.color = 'green';

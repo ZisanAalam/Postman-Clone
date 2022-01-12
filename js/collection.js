@@ -120,7 +120,7 @@ function displayCollection() {
         div.appendChild(actionList);
         collectionContainer.appendChild(div);
         // div.name = cName;
-
+        list1.data = cName;
         // div.addEventListener('click', showVariables);
         arrowSpan.addEventListener('click', showVariables);
         contentSpan.addEventListener('click', showVariables);
@@ -182,8 +182,6 @@ function editCollection(evt) {
 
 
 function showVariables(evt) {
-
-    console.log(evt);
     let name = evt.currentTarget.parentElement.children[1].innerHTML;
     let collection = document.getElementById(`${name}-collection`);
     let obj = localStorage.getItem(name);
@@ -250,13 +248,16 @@ function showVariables(evt) {
 
 }
 
-function showVariableForm() {
+function showVariableForm(evt) {
+    let cName = evt.currentTarget.data;
+    // console.log(document.getElementById('action-list-item1').data);
     document.getElementById('variable-name').value = '';
     document.getElementById('variable-address').value = '';
     container.classList.add('active');
     // addCollectionForm.style.display = "block";
     addVariableForm.classList.add('active');
     cancelBtn.addEventListener('click', closeVariableForm);
+    addVariableBtn.data = cName;
     addVariableBtn.addEventListener('click', addVariable);
 }
 
@@ -270,7 +271,8 @@ function closeVariableForm() {
 }
 
 function addVariable(evt) {
-    let cName = addVariableBtn.data;
+    let cName = evt.currentTarget.data
+        // let cName = document.getElementById('action-list-item1').data;
     let obj = localStorage.getItem(cName);
     obj = JSON.parse(obj);
 
