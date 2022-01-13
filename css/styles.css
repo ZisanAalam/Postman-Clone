@@ -619,3 +619,176 @@
     .response-key {
         color: #781D0B;
     }
+    
+    @media only screen and (max-width:1112px) {
+        .collection-name {
+            padding: 10px 30px 10px 10px;
+        }
+    }
+    
+    @media only screen and (max-width:940px) {
+        .collection-name {
+            padding: 10px 20px 10px 10px;
+        }
+    }
+    
+    @media only screen and (max-width:750px) {
+        header {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            align-items: center;
+            /* justify-content: center; */
+            padding: 10px 0px 50px 0px;
+        }
+        header h2 {
+            font-size: 20px;
+        }
+        header h1 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 70px;
+            font-size: 30px;
+        }
+        .logo {
+            padding-left: 10px;
+        }
+    }
+    
+    @media only screen and (max-width: 640px) {
+        header {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            align-items: center;
+            /* justify-content: center; */
+            padding: 10px 0px 50px 0px;
+        }
+        header h2 {
+            font-size: 18px;
+        }
+        header h1 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 75px;
+            font-size: 25px;
+        }
+        .logo {
+            padding-left: 0px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            width: 100%;
+            padding: 0px 10px;
+            /* margin: 0px 0px 0px 10px; */
+            /* margin: 0 10px; */
+        }
+        .side-bar {
+            width: 100%;
+            margin: 5px;
+        }
+        .collections {
+            margin-right: 5px;
+            margin-bottom: 20px;
+        }
+        .main-container {
+            width: 100%;
+            padding: 0;
+            /* margin: 5px; */
+        }
+        .request-container {
+            width: 100%;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+        #request-type {
+            width: 20%;
+        }
+        #url-field {
+            width: 80%;
+            font-size: 14px;
+        }
+        #submit-btn {
+            margin-top: 10px;
+            margin-left: 0px;
+        }
+        .tabs ul {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .tab-items {
+            margin-right: 10px;
+        }
+        .tabs {
+            margin-bottom: 5px;
+        }
+        .tab-contents {
+            margin-bottom: 20px;
+        }
+        textarea,
+        #response {
+            width: 100%;
+        }
+        .params-div {
+            width: 100%;
+        }
+        .keys,
+        .values {
+            width: 40%;
+            margin-right: 5px;
+        }
+        .remove-btn {
+            width: 15%;
+            padding: 9px 0px;
+        }
+        #response {
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 15px;
+            padding: 5px 10px;
+        }
+        .formater-list {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+        .response-details {
+            flex-direction: column;
+        }
+        .status {
+            justify-content: space-around;
+        }
+        .response-details-items {
+            margin-right: 0px;
+        }
+    }
+    
+    @media only screen and (max-width: 480px) {
+        .links ul li {
+            /* padding: 30px 5px; */
+            padding: 15px 5px 5px 10px;
+        }
+    }
+    
+    @media only screen and (max-width: 330px) {
+        .collection-name {
+            padding: 10px 20px 10px 10px;
+        }
+        .links ul li {
+            display: none;
+        }
+        header h1 {
+            position: absolute;
+            left: 0%;
+            transform: translateX(30%);
+            top: 75px;
+            font-size: 25px;
+        }
+    }
