@@ -87,7 +87,6 @@
     #url-field:hover,
     #request-type:hover {
         background-color: white;
-        border: 1px solid grey;
     }
     
     #submit-btn {

@@ -6,24 +6,9 @@ let responseHeaderContainer = document.querySelector('.response-header-containte
 let response = document.getElementById('response');
 
 
-function getData(url, queryParamscounter) {
+function getData(url) {
     loading.classList.add('activate')
-    for (let i = 0; i < queryParamscounter + 1; i++) {
-        // && document.getElementById(`queryparamskey${i+1}`).value != ""
-        if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
-            let key = document.getElementById(`queryparamskey${i+1}`).value.trim();
-            let value = document.getElementById(`queryparamsvalue${i+1}`).value.trim();
-            if (url.includes("?")) {
-                url += '&' + key + '=' + value;
-            } else {
-                if (i === 0) {
-                    url += '?' + key + '=' + value
-                } else {
-                    url += '&' + key + '=' + value
-                }
-            }
-        }
-    }
+
     startTime = new Date().getTime();
     // Fetch GET request with error handling
     fetch(url)

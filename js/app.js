@@ -1,5 +1,6 @@
 let headerContents = document.getElementById('header-content');
 let bodyContents = document.getElementById('body-content');
+let urlField = document.getElementById('url-field');
 headerContents.style.display = 'none';
 bodyContents.style.display = 'none';
 
@@ -89,6 +90,7 @@ addKeyValuePairParamsBtn.addEventListener('click', () => {
     })
 })
 
+
 addKeyValuePairHeaderBtn.addEventListener('click', () => {
     let div = document.createElement('div');
     headerParamsCounter++;
@@ -137,15 +139,17 @@ submitBtn.addEventListener('click', (e) => {
         document.getElementById('url-field').style.border = '1px solid red';
     }
 
-    url = getUrl(url);
+    if (url.includes('{')) {
+        url = getUrl(url);
+    }
 
     // console.log(url);
     if (requestType == 'GET') {
-        // if (paramsStatus) {
-        getData(url, queryParamscounter);
+        if (paramsStatus) {
+            url = updateUrl(url);
+        }
 
-
-        // }
+        getData(url);
 
     } else if (requestType == 'POST') {
         let data;
@@ -189,6 +193,9 @@ submitBtn.addEventListener('click', (e) => {
     }
     // Delete Request 
     else if (requestType === 'DELETE') {
+        if (paramsStatus) {
+            url = updateUrl(url);
+        }
         deleteData(url);
     }
 
@@ -212,32 +219,30 @@ function getHeaderData() {
 }
 
 function getUrl(url) {
-    if (url.includes('{')) {
-        const regex = /{{[a-zaA-z0-9-_]*}}/g;
-        const found = url.match(regex);
-        // console.log(found);
-        for (let i = 0; i < found.length; i++) {
-            let index = url.indexOf(found[i]);
-            let len = found[i].length;
-            // console.log(index, len)
-            let variable = url.substr(index + 2, len - 4);
+    const regex = /{{[a-zaA-z0-9-_]*}}/g;
+    const found = url.match(regex);
+    // console.log(found);
+    for (let i = 0; i < found.length; i++) {
+        let index = url.indexOf(found[i]);
+        let len = found[i].length;
+        // console.log(index, len)
+        let variable = url.substr(index + 2, len - 4);
 
-            for (x in localStorage) {
-                if (localStorage.getItem(x) != null) {
-                    let obj = localStorage.getItem(x);
-                    if (obj.includes(variable)) {
-                        // console.log('working');
-                        obj = JSON.parse(obj)
-                            // console.log(found[i], obj[variable]);
-                        url = url.replace(found[i], obj[variable]);
-                        // console.log(url);
-                    }
+        for (x in localStorage) {
+            if (localStorage.getItem(x) != null) {
+                let obj = localStorage.getItem(x);
+                if (obj.includes(variable)) {
+                    // console.log('working');
+                    obj = JSON.parse(obj)
+                        // console.log(found[i], obj[variable]);
+                    url = url.replace(found[i], obj[variable]);
+                    // console.log(url);
                 }
             }
         }
-        return url;
     }
-    return url
+    return url;
+
 }
 
 function isValidJson(json) {
@@ -275,3 +280,24 @@ document.getElementById('json-body').addEventListener('focus', () => {
     document.getElementById('json-body').style.removeProperty('borderColor');
     document.getElementById('json-body').style.borderColor = '#ccc';
 })
+
+//upadate url with querry parameter
+function updateUrl(url) {
+    for (let i = 0; i < queryParamscounter + 1; i++) {
+        // && document.getElementById(`queryparamskey${i+1}`).value != ""
+        if (document.getElementById(`queryparamskey${i+1}`) != undefined) {
+            let key = document.getElementById(`queryparamskey${i+1}`).value.trim();
+            let value = document.getElementById(`queryparamsvalue${i+1}`).value.trim();
+            if (url.includes("?")) {
+                url += '&' + key + '=' + value;
+            } else {
+                if (i === 0) {
+                    url += '?' + key + '=' + value;
+                } else {
+                    url += '&' + key + '=' + value;
+                }
+            }
+        }
+    }
+    return url;
+}
