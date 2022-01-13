@@ -13,19 +13,18 @@ function getData(url) {
     // Fetch GET request with error handling
     fetch(url)
         .then(async response => {
-            response.myData = new Date().getTime();
-            updateResponseHeaderContainer(response.headers);
-            updateResponseDetails(response);
             let resHeaderType = response.headers.get('content-type');
             let isJson = resHeaderType.includes('application/json') ? true : false;
             const data = isJson ? await response.text() : null;
-
             // check for error response
             if (!response.ok) {
                 // get error message from body or default to response status
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
+            response.myData = new Date().getTime();
+            updateResponseHeaderContainer(response.headers);
+            updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
             formatResponse(data);
@@ -62,9 +61,6 @@ function postData(url, data) {
             }
         })
         .then(async response => {
-            response.myData = new Date().getTime();
-            updateResponseHeaderContainer(response.headers);
-            updateResponseDetails(response);
             let resHeaderType = response.headers.get('content-type');
             let isJson = resHeaderType.includes('application/json') ? true : false;
             const data = isJson ? await response.text() : null;
@@ -75,6 +71,9 @@ function postData(url, data) {
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
+            response.myData = new Date().getTime();
+            updateResponseHeaderContainer(response.headers);
+            updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
             formatResponse(data);
@@ -111,9 +110,6 @@ function putData(url, data) {
             }
         })
         .then(async response => {
-            response.myData = new Date().getTime();
-            updateResponseHeaderContainer(response.headers);
-            updateResponseDetails(response);
             let resHeaderType = response.headers.get('content-type');
             let isJson = resHeaderType.includes('application/json') ? true : false;
             const data = isJson ? await response.text() : null;
@@ -124,6 +120,9 @@ function putData(url, data) {
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
+            response.myData = new Date().getTime();
+            updateResponseHeaderContainer(response.headers);
+            updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
             formatResponse(data);
@@ -148,13 +147,13 @@ function deleteData(url) {
 
     fetch(url, { method: 'DELETE' })
         .then(async response => {
-            response.myData = new Date().getTime();
-            updateResponseDetails(response);
             const data = await response.text();
             if (!response.ok) {
                 const error = (data && data.message) || response.status;
                 return Promise.reject(error);
             }
+            response.myData = new Date().getTime();
+            updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response').innerHTML = 'Delete successful';
         })
@@ -164,9 +163,32 @@ function deleteData(url) {
         });
 }
 
-// update response details like status, time and size
+let statusText = {
+        '200': 'OK',
+        '201': 'Created',
+        '202': 'Accepted',
+        '203': 'Non-authoritative Information',
+        '204': 'No Content',
+        '205': 'Reset Content',
+        '206': 'Partial Content',
+        '207': 'Multi-Status',
+        '208': 'Already Reported',
+        '226': 'IM Used',
+        '300': 'Multiple Choices',
+        '302': 'Found',
+        '304': 'Not Modified',
+        '400': 'Bad Request',
+        '401': 'Unauthorized',
+        '402': 'Payment Required',
+        '403': 'Forbidden',
+        '404': 'Not Found',
+        '405': 'Method Not Allowed',
+        '406': 'Not Acceptable',
+    }
+    // update response details like status, time and size
 function updateResponseDetails(response) {
     endTime = response.myData;
+    console.log(response);
     let st = response.status;
     let timeUnit = 'ms';
     let time = endTime - startTime;
@@ -175,14 +197,11 @@ function updateResponseDetails(response) {
         timeUnit = 's';
     }
     document.getElementById('response-status').style.color = 'green';
-    if (st === 404) {
+    if (!response.ok) {
         document.getElementById('response-status').style.color = 'red';
-        st = st + ' Not Found';
-    } else {
-        st = st + ' OK';
     }
 
-    document.getElementById('response-status').textContent = st;
+    document.getElementById('response-status').textContent = st + statusText[st];
     document.getElementById('response-time').textContent = `${time}${timeUnit}`;
     // document.getElementById('response-size').textContent = dataSize + 'KB';
 
