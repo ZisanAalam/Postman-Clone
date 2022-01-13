@@ -191,7 +191,7 @@
         height: 40vh;
         overflow-x: auto;
         /* white-space: pre-wrap; */
-        /* word-wrap: break-word; */
+        word-wrap: break-word;
         font-size: 15px;
         padding: 5px 10px;
     }

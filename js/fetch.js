@@ -23,7 +23,7 @@ function getData(url) {
                 return Promise.reject(error);
             }
             response.myData = new Date().getTime();
-            updateResponseHeaderContainer(response.headers);
+            // updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
@@ -72,7 +72,7 @@ function postData(url, data) {
                 return Promise.reject(error);
             }
             response.myData = new Date().getTime();
-            updateResponseHeaderContainer(response.headers);
+            // updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
@@ -121,7 +121,7 @@ function putData(url, data) {
                 return Promise.reject(error);
             }
             response.myData = new Date().getTime();
-            updateResponseHeaderContainer(response.headers);
+            // updateResponseHeaderContainer(response.headers);
             updateResponseDetails(response);
             loading.classList.remove('activate')
             document.getElementById('response-size').textContent = data.length + 'B';
@@ -253,6 +253,7 @@ function formatResponse(data) {
         pretty.classList.remove('active');
         minimal.classList.remove('active');
         responseContainer.innerHTML = JSON.stringify(JSON.parse(data), null, 4);
+        responseContainer.style.removeProperty('white-space');
     });
     pretty.addEventListener('click', () => {
         raw.classList.remove('active');
@@ -260,6 +261,7 @@ function formatResponse(data) {
         minimal.classList.remove('active');
         let newData = syntaxHighlight(data);
         responseContainer.innerHTML = newData;
+        responseContainer.style.removeProperty('white-space');
     });
 
     minimal.addEventListener('click', () => {
@@ -269,6 +271,7 @@ function formatResponse(data) {
         let d = JSON.parse(data);
         d = JSON.stringify(d);
         responseContainer.innerHTML = d;
+        responseContainer.style.whiteSpace = 'pre-wrap';
     });
 }
 
