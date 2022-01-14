@@ -6,6 +6,7 @@ let responseHeaderContainer = document.querySelector('.response-header-containte
 let response = document.getElementById('response');
 
 
+//get request
 function getData(url) {
     loading.classList.add('activate')
 
@@ -184,6 +185,7 @@ let statusText = {
         '404': 'Not Found',
         '405': 'Method Not Allowed',
         '406': 'Not Acceptable',
+
     }
     // update response details like status, time and size
 function updateResponseDetails(response) {
@@ -241,6 +243,8 @@ String.prototype.escapeSpecialChars = function() {
         .replace(/\s+/g, '');
 };
 
+
+//Format response data
 function formatResponse(data) {
     let pretty = document.getElementById('pretty');
     let raw = document.getElementById('raw');
@@ -275,6 +279,7 @@ function formatResponse(data) {
     });
 }
 
+//Hightlight syntax 
 function syntaxHighlight(data) {
     data = JSON.stringify(JSON.parse(data), null, 4);
     data = data.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -298,6 +303,8 @@ function syntaxHighlight(data) {
     )
 }
 
+
+//Handle network error 
 function networkError() {
 
     let img = document.createElement('img');
@@ -312,5 +319,4 @@ function networkError() {
 
     response.appendChild(img);
     response.appendChild(span);
-    // down.innerHTML = "Image Element Added.";
 }
