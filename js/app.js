@@ -57,6 +57,7 @@ let headerParameterContainer = document.getElementById('header-parameters');
 let queryParamscounter = 0
 let headerParamsCounter = 0;
 
+//add query parametes on add button click
 addKeyValuePairParamsBtn.addEventListener('click', () => {
     let div = document.createElement('div');
     div.setAttribute('class', 'params-div')
@@ -91,6 +92,7 @@ addKeyValuePairParamsBtn.addEventListener('click', () => {
 })
 
 
+//add header key,value pair 
 addKeyValuePairHeaderBtn.addEventListener('click', () => {
     let div = document.createElement('div');
     headerParamsCounter++;
@@ -137,66 +139,68 @@ submitBtn.addEventListener('click', (e) => {
 
     if (url === "") {
         document.getElementById('url-field').style.border = '1px solid red';
-    }
+    } else {
 
-    if (url.includes('{')) {
-        url = getUrl(url);
-    }
-
-    // console.log(url);
-    if (requestType == 'GET') {
-        if (paramsStatus) {
-            url = updateUrl(url);
+        if (url.includes('{')) {
+            url = getUrl(url);
         }
 
-        getData(url);
+        // console.log(url);
+        if (requestType == 'GET') {
+            if (paramsStatus) {
+                url = updateUrl(url);
+            }
 
-    } else if (requestType == 'POST') {
-        let data;
-        let flag = true;
-        if (bodyStatus) {
-            data = document.getElementById('json-body').value.trim();
-            flag = isValidJson(data);
+            getData(url);
 
-        } else if (headerStatus) {
-            data = JSON.stringify(getHeaderData());
+        } else if (requestType == 'POST') {
+            let data;
+            let flag = true;
+            if (bodyStatus) {
+                data = document.getElementById('json-body').value.trim();
+                flag = isValidJson(data);
 
-        } else {
-            data = JSON.stringify({});
+            } else if (headerStatus) {
+                data = JSON.stringify(getHeaderData());
+
+            } else {
+                data = JSON.stringify({});
+            }
+
+            if (flag) {
+                postData(url, data);
+            } else {
+                invalidJsonBodyResponse();
+            }
+
+        }
+        // PUT Request 
+        else if (requestType == 'PUT') {
+            let data;
+            let flag = true;
+            if (bodyStatus) {
+                data = document.getElementById('json-body').value.trim();
+                flag = isValidJson(data);
+            } else if (headerStatus) {
+                data = JSON.stringify(getHeaderData());
+
+            } else {
+                data = JSON.stringify({});
+            }
+            if (flag) {
+                postData(url, data);
+            } else {
+                invalidJsonBodyResponse();
+            }
+        }
+        // Delete Request 
+        else if (requestType === 'DELETE') {
+            if (paramsStatus) {
+                url = updateUrl(url);
+            }
+            deleteData(url);
         }
 
-        if (flag) {
-            postData(url, data);
-        } else {
-            invalidJsonBodyResponse();
-        }
-
-    }
-    // PUT Request 
-    else if (requestType == 'PUT') {
-        let data;
-        let flag = true;
-        if (bodyStatus) {
-            data = document.getElementById('json-body').value.trim();
-            flag = isValidJson(data);
-        } else if (headerStatus) {
-            data = JSON.stringify(getHeaderData());
-
-        } else {
-            data = JSON.stringify({});
-        }
-        if (flag) {
-            postData(url, data);
-        } else {
-            invalidJsonBodyResponse();
-        }
-    }
-    // Delete Request 
-    else if (requestType === 'DELETE') {
-        if (paramsStatus) {
-            url = updateUrl(url);
-        }
-        deleteData(url);
     }
 
 
@@ -218,25 +222,21 @@ function getHeaderData() {
     return data;
 }
 
+//retrive the url when variable name is used
 function getUrl(url) {
     const regex = /{{[a-zaA-z0-9-_]*}}/g;
     const found = url.match(regex);
-    // console.log(found);
     for (let i = 0; i < found.length; i++) {
         let index = url.indexOf(found[i]);
         let len = found[i].length;
-        // console.log(index, len)
         let variable = url.substr(index + 2, len - 4);
 
         for (x in localStorage) {
             if (localStorage.getItem(x) != null) {
                 let obj = localStorage.getItem(x);
                 if (obj.includes(variable)) {
-                    // console.log('working');
                     obj = JSON.parse(obj)
-                        // console.log(found[i], obj[variable]);
                     url = url.replace(found[i], obj[variable]);
-                    // console.log(url);
                 }
             }
         }
@@ -245,6 +245,7 @@ function getUrl(url) {
 
 }
 
+//Validate the json body data
 function isValidJson(json) {
     try {
         JSON.parse(json);
@@ -254,6 +255,7 @@ function isValidJson(json) {
     }
 }
 
+//shows error message when json body is invalid
 function invalidJsonBodyResponse() {
     let errorSpan = document.getElementById('json-body__error-msg');
     let jsonBody = document.getElementById('json-body');
@@ -265,6 +267,7 @@ function invalidJsonBodyResponse() {
 
 }
 
+//clear prevision data on every request
 function clearResponse() {
     document.getElementById('response').innerHTML = '';
     document.getElementById('response-status').textContent = '';
@@ -279,6 +282,12 @@ function clearResponse() {
 document.getElementById('json-body').addEventListener('focus', () => {
     document.getElementById('json-body').style.removeProperty('borderColor');
     document.getElementById('json-body').style.borderColor = '#ccc';
+})
+
+// Change border color of url field on focus
+urlField.addEventListener('focus', () => {
+    urlField.style.removeProperty('borderColor');
+    urlField.style.borderColor = '#ccc';
 })
 
 //upadate url with querry parameter

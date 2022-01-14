@@ -211,7 +211,7 @@ function showVariables(evt) {
                 keySpan.innerHTML = `${key}`;
                 // valSpan.innerHTML = `${value}`;
                 let editValSpan = document.createElement('span');
-                editValSpan.innerHTML = '<i class="fas fa-pencil-alt"></i>';
+                // editValSpan.innerHTML = '<i class="fas fa-pencil-alt"></i>';
                 editValSpan.setAttribute('id', 'edit-val');
 
                 let delValSpan = document.createElement('span');
@@ -315,10 +315,10 @@ function deleteVariable(evt) {
     let obj = localStorage.getItem(cName);
     obj = JSON.parse(obj);
     delete obj[key];
-    // localStorage.removeItem(cName);
     localStorage.setItem(cName, JSON.stringify(obj));
-    // MyCollection - collection
-    // document.getElementById(`${cName}-collection`).children[0].innerHTML = '&gt;';
-    // document.getElementById(`${cName}-collection`).children[3].innerHTML = '';
+    let collection = document.getElementById(`${cName}-collection`);
+    let tableDiv = document.getElementById(`${cName}-collection`).children[3];
+    collection.children[0].innerHTML = '&gt';
+    collection.removeChild(tableDiv);
 
 }

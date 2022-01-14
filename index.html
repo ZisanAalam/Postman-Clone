@@ -63,7 +63,7 @@
                         Params
                     </li>
                     <li class="tab-items" id="header-tab" onclick="displayContent(event,'header-content')">
-                        Body Form Data
+                        Headers
                     </li>
                     <li class="tab-items" id="body-tab" onclick="displayContent(event,'body-content')">
                         Body
@@ -73,17 +73,17 @@
 
             <div class="tab-contents">
                 <div class="tab-content" id="params-content">
-                    <h4>Query Parameters</h4>
+                    <h4 class="title">Query Parameters</h4>
                     <div class="params" id="params-parameters"></div>
                     <button id='add-key-value-pair-params'>Add</button>
                 </div>
                 <div class="tab-content" id="header-content">
-                    <h4>Body Form Data</h4>
+                    <h4 class="title">Headers</h4>
                     <div class="params" id="header-parameters"></div>
                     <button id='add-key-value-pair-header'>Add</button>
                 </div>
                 <div class="tab-content" id="body-content">
-                    <h4>Json Body</h4>
+                    <h4 class="title">Json Body</h4>
 
                     <textarea name="" id="json-body" cols="100" rows="5"></textarea>
                     <span class="json-body__error-msg" id="json-body__error-msg">Invalid Json body</span>

@@ -188,7 +188,7 @@ let statusText = {
     // update response details like status, time and size
 function updateResponseDetails(response) {
     endTime = response.myData;
-    console.log(response);
+    // console.log(response);
     let st = response.status;
     let timeUnit = 'ms';
     let time = endTime - startTime;
