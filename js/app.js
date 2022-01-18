@@ -188,7 +188,7 @@ submitBtn.addEventListener('click', (e) => {
                 data = JSON.stringify({});
             }
             if (flag) {
-                postData(url, data);
+                putData(url, data);
             } else {
                 invalidJsonBodyResponse();
             }
